@@ -1,4 +1,5 @@
-
+;;;; Egon Kidmoses emacs configuration file. 
+; created 08-may-2013
 
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
@@ -16,4 +17,8 @@
  )
 (put 'upcase-region 'disabled nil)
 
+;;;; Global appearance
+(setq default-tab-width 2)
+
+;;;; Global key bindings
 (global-unset-key "\C-z")
