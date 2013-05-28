@@ -81,3 +81,10 @@
  (setq-default c-basic-offset 2
                   tab-width 2
                   indent-tabs-mode t)
+
+
+;; function definition
+(defun kill-other-buffers ()
+      "Kill all other buffers."
+      (interactive)
+      (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
