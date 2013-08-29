@@ -5,7 +5,7 @@
 (load "~/.emacs.d/git/git.el" nil t t)
 
 ;;; LaTeX
-;(load "~/.emacs.d/latex/latex.el" nil t t)
+(load "~/.emacs.d/latex/latex.el" nil t t)
 
 ;; Avoid accicential sleepingz
 (global-unset-key (kbd "C-z"))
@@ -27,3 +27,9 @@
       "Kill all other buffers."
       (interactive)
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+
+;; Clipboard to and from other programs
+(setq x-select-enable-clipboard t)
+(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
