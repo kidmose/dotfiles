@@ -14,11 +14,12 @@
 ;;  )
 
 ;; ;; AucTex
-;; (load "auctex.el" nil t t)
+(load "auctex.el" nil t t)
 ;; (load "preview-latex.el" nil t t)
 ;; (setq TeX-auto-save t) ; parse when saving
 ;; (setq TeX-parse-self t); parse when loading
 (setq TeX-PDF-mode t); pdf by default
+(setq-default TeX-master nil) ; Query for master file.
 
 ;; ;; Evince as pdf-viewer with two way search using dbus
 ;; ;http://www.emacswiki.org/emacs/AUCTeX#toc20
