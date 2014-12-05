@@ -24,6 +24,8 @@
 ;;;; RefTeX
 (add-hook 'latex-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;(add-hook 'TeX-mode-hook #'(lambda ()
+;                             (setq-local comment-padding " ")))
 (setq reftex-plug-into-auctex t)
 
 ;; ;; Evince as pdf-viewer with two way search using dbus
