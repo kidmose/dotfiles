@@ -10,6 +10,8 @@
 (load "~/.emacs.d/c/c.el" nil t t)
 ; Global customisation
 (load "~/.emacs.d/glob_cust/glob_cust.el" nil t t)
+; term
+(load "~/.emacs.d/term/term.el" nil t t)
 
 
 
