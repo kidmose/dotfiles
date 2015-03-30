@@ -13,7 +13,7 @@
 ; term
 ;(load "~/.emacs.d/term/term.el" nil t t)
 
-;el-get
+;; el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -25,6 +25,8 @@
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
+
+(setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
 
 
 (custom-set-variables
