@@ -28,6 +28,15 @@
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
 
+;; El get packages
+(setq my-packages
+      '(
+	el-get
+	ein
+	magit
+	))
+(el-get 'sync my-packages)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
