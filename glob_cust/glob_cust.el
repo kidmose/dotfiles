@@ -7,8 +7,8 @@
 (global-unset-key [right])
 (global-unset-key [down])
 ; backspace functionality
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(global-set-key (kbd "M-h") 'backward-kill-word)
+;;(global-set-key (kbd "C-h") 'delete-backward-char)
+;;(global-set-key (kbd "M-h") 'backward-kill-word)
 
 ;;;; custom function definition
 (defun kill-other-buffers ()
