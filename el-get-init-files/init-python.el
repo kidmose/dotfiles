@@ -1,0 +1,21 @@
+(defun python-add-breakpoint ()
+  "Add a break point"
+  (interactive)
+  (newline-and-indent)
+  (insert "import ipdb; ipdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
+(define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)
+
+(defun remove-py-debug ()  
+  "remove py debug code, if found"  
+  (interactive)  
+  (let ((x (line-number-at-pos))  
+    (cur (point)))  
+    (search-forward-regexp "^[ ]*import pdb; pdb.set_trace();")  
+    (if (= x (line-number-at-pos))  
+    (let ()  
+      (move-beginning-of-line 1)  
+      (kill-line 1)  
+      (move-beginning-of-line 1))  
+      (goto-char cur))))  
+(define-key python-mode-map (kbd "C-c M-b") 'python-add-breakpoint)
