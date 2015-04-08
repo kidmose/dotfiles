@@ -34,6 +34,7 @@
 	el-get
 	ein
 	magit
+	magit-gitflow
 	))
 (el-get 'sync my-packages)
 
