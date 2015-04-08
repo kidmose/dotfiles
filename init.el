@@ -35,6 +35,7 @@
 	ein
 	magit
 	magit-gitflow
+	multi-term
 	))
 (el-get 'sync my-packages)
 
