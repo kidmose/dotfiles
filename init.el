@@ -2,8 +2,6 @@
 ; created 08-may-2013
 
 ;; Load seperate files
-; Git
-;(load "~/.emacs.d/git/git.el" nil t t)
 ; LaTeX
 ;(load "~/.emacs.d/latex/latex.el" nil t t)
 ; C and cpp
