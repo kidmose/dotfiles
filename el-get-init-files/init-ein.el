@@ -10,4 +10,10 @@
 (add-hook 'ein:notebook-multilang-mode-hook
 	  (lambda () (local-set-key (kbd "C-c C-d") 'ein:worksheet-delete-cell)))
 (add-hook 'ein:notebook-multilang-mode-hook
+	  (lambda () (local-set-key (kbd "C-M-c C-M-b") 'ein:worksheet-execute-cell-and-insert-below)))
+(add-hook 'ein:notebook-multilang-mode-hook
+	  (lambda () (local-set-key (kbd "C-M-c C-M-n") 'ein:worksheet-execute-cell-and-goto-next)))
+
+(add-hook 'ein:notebook-multilang-mode-hook
 	  (lambda () (local-set-key (kbd "C-c b") 'ipython-breakpoint-add)))
+
