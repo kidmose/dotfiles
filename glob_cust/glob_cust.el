@@ -35,11 +35,3 @@ delete-by-moving-to-trash t
 ;;;; Visual 
 ;; Load dark theme (emacs24)
 (load-theme 'tango-dark)
-
-
-;;;; Modes with only little customisation
-;; Markdown
-;; (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
-;; (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
