@@ -31,6 +31,7 @@
 	ein
 	magit
 	magit-gitflow
+	auctex
 	))
 (el-get 'sync my-packages)
 
