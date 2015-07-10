@@ -1,34 +1,23 @@
-;; (load "auctex.el" nil t t)
-;; (load "preview-latex.el" nil t t)
-;; (custom-set-variables
-;;   ;; custom-set-variables was added by Custom.
-;;   ;; If you edit it by hand, you could mess it up, so be careful.
-;;   ;; Your init file should contain only one such instance.
-;;   ;; If there is more than one, they won't work right.
-;;  '(inhibit-startup-screen t))
-;; (custom-set-faces
-;;   ;; custom-set-faces was added by Custom.
-;;   ;; If you edit it by hand, you could mess it up, so be careful.
-;;   ;; Your init file should contain only one such instance.
-;;   ;; If there is more than one, they won't work right.
-;;  )
-
-;;;; AucTex
-;;(load "auctex.el" nil t t)
-;; (load "preview-latex.el" nil t t)
+; AucTex
+;; Parse files for identifying BIBTeX, autocomplete etc. 
 (setq TeX-auto-save t) ; parse when saving
 (setq TeX-parse-self t); parse when loading
+;; Multifile documents
+(setq-default TeX-master nil) ; Query for master file if not already set or read from file/directory variables
+;; (load "preview-latex.el" nil t t)
 
-(setq TeX-PDF-mode t); pdf by default
-(setq-default TeX-master nil) ; Query for master file.
+(setq TeX-PDF-mode t); pdf output by default
 
-;;;; RefTeX
+
+; RefTeX
 (add-hook 'latex-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 ;(add-hook 'TeX-mode-hook #'(lambda ()
 ;                             (setq-local comment-padding " ")))
 (setq reftex-plug-into-auctex t)
 
+
+; Evince
 ;; ;; Evince as pdf-viewer with two way search using dbus
 ;; ;http://www.emacswiki.org/emacs/AUCTeX#toc20
 ;; (require 'dbus)
