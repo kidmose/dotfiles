@@ -1,9 +1,15 @@
 ; AucTex
+;; Always latex-mode for tex files
+(add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
 ;; Parse files for identifying BIBTeX, autocomplete etc. 
 (setq TeX-auto-save t) ; parse when saving
 (setq TeX-parse-self t); parse when loading
 ;; Multifile documents
 (setq-default TeX-master nil) ; Query for master file if not already set or read from file/directory variables
+;; work around an emacs 24.3 ispell bug
+; https://lists.gnu.org/archive/html/bug-auctex/2013-12/msg00010.html
+(add-hook 'TeX-mode-hook (lambda ()
+			   (setq-local comment-padding " ")))
 ;; (load "preview-latex.el" nil t t)
 
 (setq TeX-PDF-mode t); pdf output by default
