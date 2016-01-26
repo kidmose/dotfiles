@@ -23,7 +23,7 @@
 (setq reftex-plug-into-auctex t)
 
 ; Synctex
-(customize-set-variable TeX-source-correlate-mode t)
+(setq TeX-source-correlate-mode t)
 
 ; Evince
 ;; ;; Evince as pdf-viewer with two way search using dbus
