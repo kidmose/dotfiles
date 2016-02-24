@@ -22,8 +22,12 @@
 ;                             (setq-local comment-padding " ")))
 (setq reftex-plug-into-auctex t)
 
-; Synctex
+; Forward (Emacs to viewer) and inverse (Viewer to Emacs) search
+;; Enables Source Specials for DVI/synctex for pdf
 (setq TeX-source-correlate-mode t)
+;; Start server without prompt. Must be started for inverse search
+(setq TeX-source-correlate-start-server t)
+
 
 ; Evince
 ;; ;; Evince as pdf-viewer with two way search using dbus
