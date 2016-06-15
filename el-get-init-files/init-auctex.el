@@ -21,6 +21,8 @@
 ;(add-hook 'TeX-mode-hook #'(lambda ()
 ;                             (setq-local comment-padding " ")))
 (setq reftex-plug-into-auctex t)
+;; Dont prompt if I want \ref or \pageref
+(setq reftex-ref-macro-prompt nil)
 
 ; Forward (Emacs to viewer) and inverse (Viewer to Emacs) search
 ;; Enables Source Specials for DVI/synctex for pdf
