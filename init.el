@@ -33,6 +33,7 @@
 	magit-gitflow
 	auctex
 	restclient
+	openwith
 	))
 (el-get 'sync my-packages)
 
