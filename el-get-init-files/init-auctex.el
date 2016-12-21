@@ -24,3 +24,6 @@
 ;; Start server without prompt. Must be started for inverse search
 (setq TeX-source-correlate-start-server t)
 
+;; org-mode's minor mode; orgtbl-mode
+(require 'org)
+(add-hook 'LaTeX-mode-hook 'orgtbl-mode)
