@@ -18,4 +18,4 @@ Installing git
 Mixed dependencies:
 -------------------
 
-    sudo apt-get install -y git git-flow build-essential markdown autoconf texlive-binaries texlive-base texlive-latex-base
+    sudo apt-get install -y git git-flow install-info build-essential markdown autoconf texlive-binaries texlive-base texlive-latex-base
