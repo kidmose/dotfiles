@@ -28,6 +28,7 @@ Mixed dependencies:
      git-flow\
      install-info\
      markdown\
+     texinfo\
      texlive-base\
      texlive-binaries\
      texlive-latex-base
