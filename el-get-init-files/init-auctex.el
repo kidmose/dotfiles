@@ -11,6 +11,8 @@
 (add-hook 'TeX-mode-hook (lambda () (setq-local comment-padding " ")))
 ;; pdf output by default
 (setq TeX-PDF-mode t)
+;; Don't let verbatim environments break syntax highlighting
+(setq LaTeX-verbatim-environments-local '("Verbatim" "lstlisting" "comment"))
 
 ;; RefTeX
 (require 'reftex)

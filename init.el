@@ -27,13 +27,15 @@
 ;; El get packages
 (setq my-packages
       '(
-	el-get
+	auctex
+	bash-completion
 	ein
+	el-get
 	magit
 	magit-gitflow
-	auctex
-	restclient
+	markdown-mode
 	openwith
+	restclient
 	))
 (el-get 'sync my-packages)
 
