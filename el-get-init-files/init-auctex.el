@@ -27,6 +27,15 @@
 ;; org-mode's minor mode; orgtbl-mode
 (require 'org)
 (add-hook 'LaTeX-mode-hook 'orgtbl-mode)
+
+(defun align-environment ()
+  "Apply align to the current environment only."
+  (interactive)
+  (save-excursion)
+  (LaTeX-mark-environment)
+  (align (point) (mark)))
+
+
 ;;; Paragraph filling
 ;; Alternative to fill-paragraph: Put one sentence per line.
 ;; http://www.cs.au.dk/~abizjak/emacs/2016/03/06/latex-fill-paragraph.html
