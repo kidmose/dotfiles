@@ -34,6 +34,7 @@
 	auctex
 	restclient
 	openwith
+        visual-fill-column
 	))
 (el-get 'sync my-packages)
 
