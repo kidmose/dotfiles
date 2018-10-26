@@ -11,6 +11,10 @@
 (add-hook 'TeX-mode-hook (lambda () (setq-local comment-padding " ")))
 ;; pdf output by default
 (setq TeX-PDF-mode t)
+;; Add command to use Makefile
+(eval-after-load "tex" '(add-to-list 'TeX-command-list '("make" "make" TeX-run-compile nil t)))
+(eval-after-load "tex" '(add-to-list 'TeX-command-list '("make clean" "make clean" TeX-run-compile nil t)))
+(eval-after-load "tex" '(setq compilation-scroll-output 'first-error)) ; scroll with output
 
 ;; RefTeX
 (require 'reftex)
