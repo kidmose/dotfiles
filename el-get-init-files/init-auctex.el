@@ -14,6 +14,7 @@
 ;; Add command to use Makefile
 (eval-after-load "tex" '(add-to-list 'TeX-command-list '("make" "make" TeX-run-compile nil t)))
 (eval-after-load "tex" '(add-to-list 'TeX-command-list '("make clean" "make clean" TeX-run-compile nil t)))
+(eval-after-load "tex" '(add-to-list 'TeX-command-list '("make target" "make " TeX-run-compile t t)))
 (eval-after-load "tex" '(setq compilation-scroll-output 'first-error)) ; scroll with output
 ;; Don't use danish quatation marks, use english even if danish babel is loaded ( https://www.gnu.org/software/auctex/manual/auctex/auctex_78.html#Style-Files-for-Different-Languages)
 (eval-after-load "tex" '(add-to-list 'TeX-quote-language-alist '("danish" "``" "''" nil)))
