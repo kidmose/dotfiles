@@ -21,6 +21,8 @@
 (setq LaTeX-babel-hyphen nil)
 ;; Don't use danish hyphenation, use english even if danish babel is loaded ( https://www.gnu.org/software/auctex/manual/auctex/auctex_78.html#Style-Files-for-Different-Languages)
 ;; (eval-after-load "LaTeX" '(add-to-list 'LaTeX-babel-hyphen-language-alist '("danish" "-" )))
+;; Don't let verbatim environments break syntax highlighting
+(setq LaTeX-verbatim-environments-local '("Verbatim" "lstlisting" "comment"))
 
 ;; RefTeX
 (require 'reftex)
