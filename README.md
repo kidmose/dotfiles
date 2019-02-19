@@ -3,7 +3,7 @@ README for my .emacs.d
 
 Git repository for my emacs configuration.
 
-Installing emacs 24.4
+Installing emacs 25
 ---------------------
 
 I'm om linux mint 17.3 (and other debian-based), not satisfied with the version in official repos (magit requires 24.4):
