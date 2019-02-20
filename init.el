@@ -32,8 +32,8 @@
 	bash-completion
 	ein
 	el-get
-	magit
-	magit-gitflow
+;	magit
+;	magit-gitflow
 	markdown-mode
 	openwith
 	restclient
