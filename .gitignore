@@ -5,3 +5,4 @@ session.*
 /el-get/
 /request/
 *.elc
+elpa

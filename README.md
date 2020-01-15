@@ -21,7 +21,7 @@ Installing git
 Mixed dependencies:
 -------------------
 
-    sudo apt-get install -y\
+    sudo apt install -y\
      autoconf\
      build-essential\
      git\
