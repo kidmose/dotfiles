@@ -37,6 +37,15 @@
 	markdown-mode
 	openwith
 	restclient
+        python-mode
+        elpy
+        python
+        ;; https://smythp.com/emacs/python/2016/04/27/pyenv-elpy.html
+        ;; flycheck
+        ;; py-autopep8
+        ;; blacken
+        ;; pyenv-mode ; Seem broken: https://github.com/pythonic-emacs/pythonic/issues/16
+        virtualenv; Provides pyvenv-workon, require $WORKON_HOME env var to be set
 	))
 (el-get 'sync my-packages)
 
