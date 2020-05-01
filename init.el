@@ -44,7 +44,7 @@
         flycheck
         ;; py-autopep8
         ;; blacken
-        pyenv-mode
+        pyenv-mode f ;; manually installed dependency: f
         pyenv-mode-auto
 	))
 (el-get 'sync my-packages)
