@@ -7,7 +7,9 @@
 ;; (require 'py-autopep8)
 ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 
- 
+(require 'pyenv-mode) ;; Use virtual environments
+(require 'pyenv-mode-auto) ;; automatically use .python-version
+
 ;; Builtin minor modes
 (add-hook 'python-mode-hook 'linum-mode)
 

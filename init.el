@@ -44,8 +44,8 @@
         flycheck
         ;; py-autopep8
         ;; blacken
-        ;; pyenv-mode ; Seem broken: https://github.com/pythonic-emacs/pythonic/issues/16
-        virtualenv; Provides pyvenv-workon, require $WORKON_HOME env var to be set
+        pyenv-mode
+        pyenv-mode-auto
 	))
 (el-get 'sync my-packages)
 
