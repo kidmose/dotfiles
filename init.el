@@ -38,10 +38,10 @@
 	openwith
 	restclient
         python-mode
-        elpy
-        python
+        ;; elpy
+        ;; python
         ;; https://smythp.com/emacs/python/2016/04/27/pyenv-elpy.html
-        ;; flycheck
+        flycheck
         ;; py-autopep8
         ;; blacken
         ;; pyenv-mode ; Seem broken: https://github.com/pythonic-emacs/pythonic/issues/16

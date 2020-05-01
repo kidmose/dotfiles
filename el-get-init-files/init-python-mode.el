@@ -1,8 +1,8 @@
-(require 'elpy)
-(add-hook 'python-mode-hook 'elpy-enable)
+;;(require 'elpy)
+;;(add-hook 'python-mode-hook 'elpy-enable)
 
-;; (require 'flycheck)
-;; (add-hook 'python-mode-hook 'flycheck-mode)
+(require 'flycheck)
+(add-hook 'python-mode-hook 'flycheck-mode)
 
 ;; (require 'py-autopep8)
 ;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
