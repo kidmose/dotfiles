@@ -22,6 +22,9 @@
   # boot.loader.grub.useOSProber = true;
   # boot.loader.grub.efiSupport = true;
 
+  # For opening eCryptfs encrypted /home/*
+  security.pam.enableEcryptfs = true;
+
   networking.hostName = "egk-ThinkPad-T450s"; # Define your hostname.
   # create a self-resolving hostname entry in /etc/hosts
   networking.extraHosts = "127.0.1.1 egk-ThinkPad-T450s";
@@ -51,6 +54,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    ecryptfs
+    ecryptfs-helper
     wget
     emacs
     firefox
