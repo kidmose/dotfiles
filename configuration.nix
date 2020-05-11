@@ -62,9 +62,11 @@
     emacs
     firefox
     git
+    gnupg
     keepassx2
     thunderbird
     wget
+    kwalletcli # for pinetry-kwallet to be used by gpg+git
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
