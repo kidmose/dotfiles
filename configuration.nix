@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
     ];
 
+  nixpkgs.config.allowUnfree = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -54,13 +56,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    discord
     ecryptfs
     ecryptfs-helper
-    wget
     emacs
     firefox
     git
     thunderbird
+    wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
