@@ -62,6 +62,7 @@
     emacs
     firefox
     git
+    keepassx2
     thunderbird
     wget
   ];
