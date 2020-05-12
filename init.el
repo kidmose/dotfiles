@@ -37,6 +37,7 @@
 	markdown-mode
 	openwith
 	restclient
+        flyspell
         python-mode
         ;; elpy
         ;; python

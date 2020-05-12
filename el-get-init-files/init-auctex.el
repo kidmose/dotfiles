@@ -9,6 +9,10 @@
 ;; work around an emacs 24.3 ispell bug
 ;; https://lists.gnu.org/archive/html/bug-auctex/2013-12/msg00010.html
 (add-hook 'TeX-mode-hook (lambda () (setq-local comment-padding " ")))
+;; enable flyspell
+(require 'flyspell)
+(defun turn-on-flyspell () (flyspell-mode 1))
+(add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
 ;; pdf output by default
 (setq TeX-PDF-mode t)
 ;; Add command to use Makefile
@@ -82,3 +86,6 @@ Otherwise split the current paragraph into one sentence per line."
 (add-hook 'LaTeX-mode-hook 'visual-line-mode) ; visual line mode does line wrapping at word boundaries without affecting file or nasty hacks. 
 (require 'visual-fill-column)
 (add-hook 'visual-line-mode-hook 'visual-fill-column-mode) ; Makes visual lines mode use fill-column instead of just window width
+;; Keybinding: M-n and M-p to move paragraph
+(eval-after-load "LaTeX" '(define-key LaTeX-mode-map (kbd "M-p") 'backward-paragraph))
+(eval-after-load "LaTeX" '(define-key LaTeX-mode-map (kbd "M-n") 'forward-paragraph))
