@@ -34,6 +34,7 @@
 	el-get
 	magit
 	magit-gitflow
+        magit-popup
 	markdown-mode
 	openwith
 	restclient
