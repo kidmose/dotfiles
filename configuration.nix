@@ -65,6 +65,7 @@
     git
     gnupg
     keepassx2
+    nextcloud-client
     skype
     teams
     thunderbird
