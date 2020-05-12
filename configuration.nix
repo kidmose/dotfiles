@@ -61,6 +61,7 @@
     ecryptfs
     ecryptfs-helper
     emacs
+    evince
     firefox
     git
     gnupg
