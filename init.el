@@ -56,6 +56,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(indent-tabs-mode nil)
  '(initial-major-mode (quote markdown-mode))
  '(initial-scratch-message nil)
  '(safe-local-variable-values (quote ((encoding . utf-8)))))
