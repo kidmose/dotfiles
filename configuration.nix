@@ -57,6 +57,20 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # LaTeX stuff
+    autoconf gnumake # for AUCTeX through emacs' el-get
+    (texlive.combine {inherit (texlive) scheme-minimal
+      collection-langeuropean # danish in babel
+      collection-langenglish
+      collection-publishers # elsarticle.sty
+      collection-fontsextra # dsfont.sty
+      collection-fontsrecommended # scalable fonts
+      collection-latex
+      collection-latexrecomended
+      collection-latexextra # fixme.sty
+                      ;})
+    evince # because this is what my .emacs is configured for
+    # Other stuff
     discord
     ecryptfs
     ecryptfs-helper
