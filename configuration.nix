@@ -64,6 +64,8 @@
     git
     gnupg
     keepassx2
+    skype
+    teams
     thunderbird
     wget
     kwalletcli # for pinetry-kwallet to be used by gpg+git
@@ -93,8 +95,8 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
