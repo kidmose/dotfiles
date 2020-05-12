@@ -1,0 +1,8 @@
+auto-save-list/
+session.*
+*~
+/ac-comphist.dat
+/el-get/
+/request/
+*.elc
+elpa
