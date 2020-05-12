@@ -2,3 +2,7 @@
  * non-mutable users
  * .emacs
  * slack
+ * thunderbird add-ons (google, exchange)
+ * firefox add-ons
+ * ssh-agent, gpg agent using wallet/PAM/whatever to no ask
+ * exchange calendar (Maybe with davmail?)
