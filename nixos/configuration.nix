@@ -66,7 +66,7 @@
       collection-fontsextra # dsfont.sty
       collection-fontsrecommended # scalable fonts
       collection-latex
-      collection-latexrecomended
+      collection-latexrecommended
       collection-latexextra # fixme.sty
                       ;})
     evince # because this is what my .emacs is configured for
