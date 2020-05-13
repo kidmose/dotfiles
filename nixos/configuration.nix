@@ -6,8 +6,9 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
+      ./secrets.nix
       <nixos-hardware/lenovo/thinkpad/t450s>
     ];
 
@@ -104,6 +105,32 @@
   programs.gnupg.agent.enable = true;
   # TODO: Assert that ~/.gnupg/gpg-agent.conf holds: "pinentry-program
   # /run/current-system/sw/bin/pinentry-kwallet"
+
+  # dav mail
+  services.davmail = {
+    enable = true;
+    # url = "https://mail.aau.dk/EWS/Exchange.asmx";
+    config = {
+      # cf. http://davmail.sourceforge.net/serversetup.html
+      # General
+      davmail.mode = "EWS";
+      davmail.disableUpdateCheck = true;
+      # network
+      davmail.bindAddress = "127.0.0.1";
+      davmail.caldavPort = 1080;
+      davmail.imapPort = ""; # 1143;
+      davmail.ldapPort = ""; # 1389;
+      davmail.popPort = ""; # 1110;
+      davmail.smtpPort = ""; # 1025;
+      # logging
+      davmail.logFilePath = "/var/log/davmail/davmail.log";
+      davmail.logFileSize = "1MB";
+      log4j.logger.davmail = "WARN";
+      log4j.logger.httpclient.wire = "WARN";
+      log4j.logger.org.apache.commons.httpclient = "WARN";
+      log4j.rootLogger = "WARN";
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
