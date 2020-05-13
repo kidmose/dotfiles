@@ -85,8 +85,15 @@
     teams
     thunderbird
     wget
-    kwalletcli # for pinetry-kwallet to be used by gpg+git
+    kwalletcli # for pinetry-kwallet to be used by gpg-agent
   ];
+
+  # Use kwallet to store sshkey and gpg passphrase (for instance for git)
+  security.pam.services.kwallet.enableKwallet = true; # unlock on login
+  # GPG:
+  programs.gnupg.agent.enable = true;
+  # TODO: Assert that ~/.gnupg/gpg-agent.conf holds: "pinentry-program
+  # /run/current-system/sw/bin/pinentry-kwallet"
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
