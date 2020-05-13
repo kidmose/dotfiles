@@ -39,15 +39,15 @@
 	openwith
 	restclient
         flyspell
-        python-mode
+        ;; python-mode ;; need to run el-get-elpa-build-local-recipes ?
         ;; elpy
         ;; python
         ;; https://smythp.com/emacs/python/2016/04/27/pyenv-elpy.html
-        flycheck
+        flycheck ;; need to run el-get-elpa-build-local-recipes ?
         ;; py-autopep8
         ;; blacken
-        pyenv-mode f ;; manually installed dependency: f
-        pyenv-mode-auto
+        ;; pyenv-mode f ;; manually installed dependency: f
+        ;; pyenv-mode-auto
 	))
 (el-get 'sync my-packages)
 
