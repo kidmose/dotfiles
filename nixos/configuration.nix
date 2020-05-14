@@ -80,7 +80,9 @@
     firefox
     git
     gnupg
+    htop
     keepassx2
+    meld
     nextcloud-client
     skype
     teams
