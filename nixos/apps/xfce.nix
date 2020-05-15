@@ -5,13 +5,13 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    xfce4-13.xfce4-panel
-    xfce4-13.xfce4-notifyd
+    xfce.xfce4-panel
+    xfce.xfce4-notifyd
     xfce.xfce4-battery-plugin
-    xfce4-13.xfce4-hardware-monitor-plugin
-    xfce.xfce4-mailwatch-plugin
-    xfce4-13.xfce4-namebar-plugin
-    xfce4-13.xfce4-xkb-plugin
+    xfce.xfce4-hardware-monitor-plugin
+    # xfce.xfce4-mailwatch-plugin
+    xfce.xfce4-namebar-plugin
+    xfce.xfce4-xkb-plugin
     xsecurelock
 
     papirus-icon-theme
@@ -44,7 +44,7 @@
       enable = true;
       autoLogin = {
         enable = true;
-        user = "tpanum";
+        user = "egk";
       };
     };
   };

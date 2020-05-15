@@ -8,6 +8,8 @@
       ./apps/emacs.nix
       ./apps/latex.nix
       ./apps/encryption-secrets.nix
+      ./apps/x11.nix
+      ./apps/xfce.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
@@ -60,8 +62,8 @@
     # Enable touchpad support.
     libinput.enable = true;
     # Enable the KDE Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
+    # displayManager.sddm.enable = true;
+    # desktopManager.plasma5.enable = true;
   };
 
   # Users, groups and rights
