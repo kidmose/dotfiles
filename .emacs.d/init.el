@@ -1,6 +1,7 @@
 ;;;; Egon Kidmoses emacs configuration file. 
 ; created 08-may-2013
 
+;; 
 ;; Load seperate files
 ; LaTeX
 ;(load "~/.emacs.d/latex/latex.el" nil t t)
@@ -60,8 +61,8 @@
  '(indent-tabs-mode nil)
  '(initial-major-mode (quote markdown-mode))
  '(initial-scratch-message nil)
- '(safe-local-variable-values (quote ((encoding . utf-8)))))
- '(ispell-dictionary "en_GB")
+ '(safe-local-variable-values (quote ((encoding . utf-8))))
+ '(ispell-dictionary "en_GB"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
