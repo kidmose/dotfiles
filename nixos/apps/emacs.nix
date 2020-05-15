@@ -3,6 +3,6 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-      autoconf gnumake # for AUCTeX through emacs' el-get
+    autoconf gnumake # for AUCTeX through emacs' el-get
   ];
 }
