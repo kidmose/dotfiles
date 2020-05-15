@@ -45,6 +45,7 @@
     teams
     thunderbird
     wget
+    alacritty
   ];
 
   # docker
