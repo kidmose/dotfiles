@@ -1,5 +1,4 @@
  * Cryptswap
  * non-mutable users
- * .emacs
  * slack
- * ssh-agent, gpg agent using wallet/PAM/whatever to no ask
+ * ssh-agent, gpg agent using wallet/PAM/whatever to not ask when using git

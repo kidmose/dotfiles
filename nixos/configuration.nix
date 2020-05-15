@@ -1,196 +1,83 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
-
 {
   imports =
     [
       ./hardware-configuration.nix
-      ./secrets.nix
-      <nixos-hardware/lenovo/thinkpad/t450s>
+      ./aau/networking-egk-ThinkPad-T450s.nix
+      ./aau/aau.nix
+      ./apps/emacs.nix
+      ./apps/latex.nix
+      ./apps/encryption-secrets.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
 
-  # Use the systemd-boot EFI boot loader.
+  # Boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
-  # Use grub
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.version = 2;
-  # boot.loader.grub.device = "nodev";
-  # boot.loader.grub.useOSProber = true;
-  # boot.loader.grub.efiSupport = true;
-
-  # For opening eCryptfs encrypted /home/*
-  security.pam.enableEcryptfs = true;
-
-  networking.hostName = "egk-ThinkPad-T450s"; # Define your hostname.
-  # create a self-resolving hostname entry in /etc/hosts
-  networking.extraHosts = "127.0.1.1 egk-ThinkPad-T450s";
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp0s25.useDHCP = true;
-  networking.interfaces.wlp3s0.useDHCP = true;
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
+  # Localisation
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "dk";
   };
-
-  # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Packages to install
   environment.systemPackages = with pkgs; [
-    # LaTeX stuff
-    autoconf gnumake # for AUCTeX through emacs' el-get
-    (texlive.combine {inherit (texlive) scheme-minimal
-      collection-langeuropean # danish in babel
-      collection-langenglish
-      collection-publishers # elsarticle.sty
-      collection-fontsextra # dsfont.sty
-      collection-fontsrecommended # scalable fonts
-      collection-latex
-      collection-latexrecommended
-      collection-latexextra # fixme.sty
-                      ;})
-    evince # because this is what my .emacs is configured for
-    # Other stuff
+    evince
     discord
-    ecryptfs
-    ecryptfs-helper
+    # ecryptfs
+    # ecryptfs-helper
     emacs
     evince
     firefox
     git
-    gnupg
     htop
-    keepassx2
     meld
     nextcloud-client
+    screen
     skype
     teams
     thunderbird
     wget
-    kwalletcli # for pinetry-kwallet to be used by gpg-agent
   ];
 
-  # Use kwallet to store sshkey and gpg passphrase (for instance for git)
-  security.pam.services.kwallet.enableKwallet = true; # unlock on login
-  # It might be necessary to manually create a wallet with the default
-  # name (kdewallet) using a blowfish password, as the default of
-  # using a gpg password seems to break nextcloud integration.
-  #
-  # SSH
-  # start the agent, but identity needs to be added manually for each session?
-  programs.ssh = {
-    startAgent = true;
-    askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
-  };
-  # GPG:
-  programs.gnupg.agent.enable = true;
-  # TODO: Assert that ~/.gnupg/gpg-agent.conf holds: "pinentry-program
-  # /run/current-system/sw/bin/pinentry-kwallet"
-
-  # dav mail
-  services.davmail = {
-    enable = true;
-    # url = "https://mail.aau.dk/EWS/Exchange.asmx";
-    config = {
-      # cf. http://davmail.sourceforge.net/serversetup.html
-      # General
-      davmail.mode = "EWS";
-      davmail.disableUpdateCheck = true;
-      # network
-      davmail.bindAddress = "127.0.0.1";
-      davmail.caldavPort = 1080;
-      davmail.imapPort = ""; # 1143;
-      davmail.ldapPort = ""; # 1389;
-      davmail.popPort = ""; # 1110;
-      davmail.smtpPort = ""; # 1025;
-      # logging
-      davmail.logFilePath = "/var/log/davmail/davmail.log";
-      davmail.logFileSize = "1MB";
-      log4j.logger.davmail = "WARN";
-      log4j.logger.httpclient.wire = "WARN";
-      log4j.logger.org.apache.commons.httpclient = "WARN";
-      log4j.rootLogger = "WARN";
-    };
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  #   pinentryFlavor = "gnome3";
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
+  # docker
+  virtualisation.docker.enable = true;
+  
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "dk";
-  services.xserver.xkbOptions = "eurosign:e";
+  services.xserver = {
+    enable = true;
+    layout = "dk";
+    xkbOptions = "eurosign:e";
+    # Enable touchpad support.
+    libinput.enable = true;
+    # Enable the KDE Desktop Environment.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
+  };
 
-  # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
-
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
+  # Users, groups and rights
   users.users.root.initialHashedPassword = "";
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.egk = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"  # Enable ‘sudo’ for the user.
+      "docker"
+    ];
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # OS config
   system.stateVersion = "20.03"; # Did you read the comment?
-
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
-
-
 }
 
