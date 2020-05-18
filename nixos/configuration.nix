@@ -8,8 +8,7 @@
       ./apps/emacs.nix
       ./apps/latex.nix
       ./apps/encryption-secrets.nix
-      ./apps/x11.nix
-      ./apps/xfce.nix
+      ./apps/i3.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
