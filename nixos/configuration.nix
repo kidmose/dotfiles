@@ -55,18 +55,6 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    layout = "dk";
-    xkbOptions = "eurosign:e";
-    # Enable touchpad support.
-    libinput.enable = true;
-    # Enable the KDE Desktop Environment.
-    # displayManager.sddm.enable = true;
-    # desktopManager.plasma5.enable = true;
-  };
-
   # Users, groups and rights
   users.users.root.initialHashedPassword = "";
   # Define a user account. Don't forget to set a password with ‘passwd’.

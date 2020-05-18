@@ -24,7 +24,6 @@
         enable = true;
         thunarPlugins = with pkgs.xfce; [
           thunar-archive-plugin
-          thunar-dropbox-plugin
           thunar_volman
         ];
 
@@ -40,12 +39,6 @@
       default = "i3";
     };
 
-    displayManager.lightdm = {
-      enable = true;
-      autoLogin = {
-        enable = true;
-        user = "egk";
-      };
-    };
+    displayManager.lightdm.enable = true;
   };
 }

@@ -6,8 +6,7 @@
     # hsetroot
   ];
 
-  services.autorandr.enable = true;
-  services.udisks2.enable = true;
+  services.autorandr.enable = true; # Monitor management
   services.tlp = { # Power Management
     extraConfig = ''
       # DISK_DEVICES="nvme0n1"
@@ -17,22 +16,12 @@
     enable = true; 
   };
 
+  # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    # layout = "us,dk";
-    # xkbVariant = "altgr-intl,";
-    # xkbOptions = "grp:alt_shift_toggle";
-
-    libinput = {
-      enable = true;
-    };
-
-    # displayManager = {
-    #     sessionCommands = ''
-    #       ${pkgs.xcape}/bin/xcape -e 'Shift_L=Escape' &
-    #       ${pkgs.xorg.xmodmap}/bin/xmodmap $HOME/.Xmodmap &
-    #       $HOME/.scripts/wallpaper.sh &
-    #     '';
-    # };
+    layout = "dk";
+    xkbOptions = "eurosign:e";
+    # Enable touchpad support.
+    libinput.enable = true;
   };
 }
