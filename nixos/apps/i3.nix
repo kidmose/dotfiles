@@ -42,7 +42,7 @@
   services.xserver = {
 
     displayManager = {
-      lightdm.enable = true;
+      lightdm.enable = true; # manages log-in
       defaultSession = "none+i3";
     };
 
