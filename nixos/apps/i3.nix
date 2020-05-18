@@ -23,7 +23,6 @@
       # applications
       # dmenu # Maybe this over rofi?
       rofi
-      arandr                    # UI for xrandr (display controlling)
       xsettingsd
       acpilight                # provides xbacklight
       brightnessctl

@@ -4,6 +4,7 @@
     xorg.xmodmap
     # xcape
     # hsetroot
+    arandr                    # UI for xrandr (display controlling)
   ];
 
   services.autorandr.enable = true; # Monitor management
