@@ -31,7 +31,6 @@
       xorg.xprop               # needed for copy/paste
       xdotool                  # needed for copy/paste
       xorg.xdpyinfo
-      gnome3.networkmanagerapplet
 
       # I don't know why:
       qtpass
