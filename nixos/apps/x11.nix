@@ -7,7 +7,22 @@
     arandr                    # UI for xrandr (display controlling)
   ];
 
-  services.autorandr.enable = true; # Monitor management
+  # Monitor management
+  services.autorandr.enable = true; # Fix monitor layout when sleeping/waking up
+  systemd.user.services.autorandr-start = { # Fix monitor layout on log-in
+    # TODO: Instead of doing it after loging, do it as root with --batch before x11 is started
+    description = "Fix monitor layout on login";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    serviceConfig = {
+      StartLimitInterval = 5;
+      StartLimitBurst = 1;
+      ExecStart = "${pkgs.autorandr}/bin/autorandr --change";
+      Type = "oneshot";
+      RemainAfterExit = false;
+    };
+  };
+
   services.tlp = { # Power Management
     extraConfig = ''
       # DISK_DEVICES="nvme0n1"
