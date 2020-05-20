@@ -9,6 +9,7 @@
       ./apps/latex.nix
       ./apps/encryption-secrets.nix
       ./apps/i3.nix
+      ./apps/nextcloud-client.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
@@ -38,7 +39,6 @@
     git
     htop
     meld
-    nextcloud-client
     screen
     skype
     teams
