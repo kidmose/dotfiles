@@ -55,7 +55,7 @@
   hardware.pulseaudio.enable = true;
 
   # Users, groups and rights
-  users.users.root.initialHashedPassword = "";
+  users.users.root.initialHashedPassword = "!"; # Don't leave it blank (IIRC leaving it blank will cause passwd prompt during install)
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.egk = {
     isNormalUser = true;
