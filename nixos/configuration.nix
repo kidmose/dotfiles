@@ -9,6 +9,7 @@
       ./apps/latex.nix
       ./apps/encryption-secrets.nix
       ./apps/i3.nix
+      ./apps/cli.nix
       ./apps/nextcloud-client.nix
     ];
 
@@ -29,22 +30,20 @@
 
   # Packages to install
   environment.systemPackages = with pkgs; [
-    evince
+    alacritty
     discord
-    # ecryptfs
-    # ecryptfs-helper
     emacs
     evince
     firefox
-    git
-    htop
+    gnome3.eog
+    gnome3.gnome-screenshot
+    libreoffice
     meld
-    screen
+    pinta
     skype
     teams
     thunderbird
-    wget
-    alacritty
+    vlc
   ];
 
   # docker
