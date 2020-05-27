@@ -9,6 +9,7 @@
       ./apps/latex.nix
       ./apps/encryption-secrets.nix
       ./apps/i3.nix
+      ./apps/virtualbox.nix
       ./apps/cli.nix
       ./apps/nextcloud-client.nix
     ];
@@ -61,6 +62,7 @@
     extraGroups = [
       "wheel"  # Enable ‘sudo’ for the user.
       "docker"
+      "vboxusers"
     ];
   };
 
