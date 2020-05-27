@@ -53,6 +53,7 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  nixpkgs.config.pulseaudio = true;
 
   # Users, groups and rights
   users.users.root.initialHashedPassword = "!"; # Don't leave it blank (IIRC leaving it blank will cause passwd prompt during install)
@@ -63,6 +64,7 @@
       "wheel"  # Enable ‘sudo’ for the user.
       "docker"
       "vboxusers"
+      "audio"
     ];
   };
 
