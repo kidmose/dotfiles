@@ -6,14 +6,9 @@
     systemPackages = with pkgs; [
       networkmanager
       networkmanagerapplet # provides nm-connection-editor (GUI)
-
       # openconnect as a cisco vpn client
       openconnect
       networkmanager-openconnect
-
-      # vpnc as a cisco vpn client
-      vpnc
-      networkmanager-vpnc
     ];
   };
 
@@ -33,4 +28,46 @@
   networking.interfaces.wlp3s0.useDHCP = true;
 
   networking.networkmanager.enable = true;
+
+  environment.etc."NetworkManager/system-connections/aau-vpn.nmconnection" = {
+    text = ''
+      [connection]
+      id=aau-vpn
+      uuid=cf80825f-4d0f-4b4e-902e-86d0851f0c4f
+      type=vpn
+      autoconnect=false
+      permissions=
+
+      [vpn]
+      authtype=password
+      autoconnect-flags=0
+      cacert=/etc/nixos/aau/iesca.crt
+      certsigs-flags=0
+      cookie-flags=2
+      enable_csd_trojan=no
+      gateway=ssl-vpn1.aau.dk
+      gateway-flags=2
+      gwcert-flags=2
+      lasthost-flags=0
+      pem_passphrase_fsid=no
+      prevent_invalid_cert=no
+      protocol=anyconnect
+      stoken_source=totp
+      xmlconfig-flags=0
+      service-type=org.freedesktop.NetworkManager.openconnect
+
+      [ipv4]
+      dns-search=
+      method=auto
+
+      [ipv6]
+      addr-gen-mode=stable-privacy
+      dns-search=
+      ip6-privacy=0
+      method=auto
+
+      [proxy]
+    '';
+    mode = "0400";
+  };
 }
