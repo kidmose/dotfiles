@@ -65,6 +65,7 @@
       "docker"
       "vboxusers"
       "audio"
+      "networkmanager"
     ];
   };
 
@@ -73,4 +74,3 @@
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
 }
-

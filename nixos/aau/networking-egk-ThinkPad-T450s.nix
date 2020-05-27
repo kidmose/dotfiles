@@ -2,11 +2,26 @@
 { config, lib, pkgs, ... }:
 
 {
+  environment = {
+    systemPackages = with pkgs; [
+      networkmanager
+      networkmanagerapplet # provides nm-connection-editor (GUI)
+
+      # openconnect as a cisco vpn client
+      openconnect
+      networkmanager-openconnect
+
+      # vpnc as a cisco vpn client
+      vpnc
+      networkmanager-vpnc
+    ];
+  };
+
   networking.hostName = "egk-ThinkPad-T450s"; # Define your hostname.
   # create a self-resolving hostname entry in /etc/hosts
   networking.extraHosts = "127.0.1.1 egk-ThinkPad-T450s";
 
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # and:
   # wpa_passphrase ESSID PSK >> /etc/wpa_supplicant.conf
 
@@ -17,7 +32,5 @@
   networking.interfaces.enp0s25.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.networkmanager.enable = true;
 }
