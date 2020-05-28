@@ -36,5 +36,3 @@
       (goto-char cur))))  
 
 ;; (define-key python-mode-map (kbd "C-c M-b") 'python-add-breakpoint)
-
-(define-key python-mode-map (kbd "C-c ;") 'comment-or-uncomment-region)

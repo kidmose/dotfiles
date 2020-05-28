@@ -1,11 +1,12 @@
 ;;;; Keybindings
-;; Avoid accicential sleeping
-(global-unset-key (kbd "C-z"))
+;; Avoid accicential sleeping when running under x11
+(if (eq window-system 'x) (global-unset-key (kbd "C-z")))
+
 ;;;; Unbind arrow movement, for training myself to use proper keys
-(global-unset-key [left])
-(global-unset-key [up])
-(global-unset-key [right])
-(global-unset-key [down])
+;; (global-unset-key [left])
+;; (global-unset-key [up])
+;; (global-unset-key [right])
+;; (global-unset-key [down])
 ; backspace functionality
 ;;(global-set-key (kbd "C-h") 'delete-backward-char)
 ;;(global-set-key (kbd "M-h") 'backward-kill-word)
@@ -35,3 +36,7 @@ delete-by-moving-to-trash t
 ;;;; Visual 
 ;; Load dark theme (emacs24)
 (load-theme 'tango-dark)
+
+;; Enable functions that are disabled by default
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
