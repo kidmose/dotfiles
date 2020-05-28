@@ -1,7 +1,9 @@
 # Network config for my AAU laptop
 { config, lib, pkgs, ... }:
 
-{
+let secrets = import ../secrets.nix;
+in
+rec {
   environment = {
     systemPackages = with pkgs; [
       networkmanager
