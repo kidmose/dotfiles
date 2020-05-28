@@ -58,6 +58,11 @@ rec {
       xmlconfig-flags=0
       service-type=org.freedesktop.NetworkManager.openconnect
 
+      [vpn-secrets]
+      form:main:group_list=SSL
+      form:main:username=${secrets.aau.user}
+      save_passwords=yes
+
       [ipv4]
       dns-search=
       method=auto
@@ -66,6 +71,39 @@ rec {
       addr-gen-mode=stable-privacy
       dns-search=
       ip6-privacy=0
+      method=auto
+
+      [proxy]
+    '';
+    mode = "0400";
+  };
+
+  environment.etc."NetworkManager/system-connections/${secrets.home.wifi.ssid}.nmconnection" = {
+    text = ''
+      [connection]
+      id=${secrets.home.wifi.ssid}
+      uuid=c8b3c2ff-99a5-4e84-bfa3-f7260908574c
+      type=wifi
+      interface-name=wlp3s0
+      permissions=
+
+      [wifi]
+      mac-address-blacklist=
+      mode=infrastructure
+      ssid=${secrets.home.wifi.ssid}
+
+      [wifi-security]
+      auth-alg=open
+      key-mgmt=wpa-psk
+      psk=${secrets.home.wifi.psk}
+
+      [ipv4]
+      dns-search=
+      method=auto
+
+      [ipv6]
+      addr-gen-mode=stable-privacy
+      dns-search=
       method=auto
 
       [proxy]
