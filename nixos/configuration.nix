@@ -2,17 +2,18 @@
 {
   imports =
     [
-      ./hardware-configuration.nix
-      ./aau/networking-egk-ThinkPad-T450s.nix
       ./aau/aau.nix
+      ./aau/networking-egk-ThinkPad-T450s.nix
+      ./apps/cli.nix
       ./apps/emacs.nix
-      ./apps/latex.nix
       ./apps/encryption-secrets.nix
       ./apps/i3.nix
-      ./apps/virtualbox.nix
-      ./apps/cli.nix
+      ./apps/latex.nix
       ./apps/nextcloud-client.nix
       ./apps/python.nix
+      ./apps/sound.nix
+      ./apps/virtualbox.nix
+      ./hardware-configuration.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
@@ -51,11 +52,6 @@
   # docker
   virtualisation.docker.enable = true;
   
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  nixpkgs.config.pulseaudio = true;
-
   # Users, groups and rights
   users.users.root.initialHashedPassword = "!"; # Don't leave it blank (IIRC leaving it blank will cause passwd prompt during install)
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -65,7 +61,6 @@
       "wheel"  # Enable ‘sudo’ for the user.
       "docker"
       "vboxusers"
-      "audio"
       "networkmanager"
     ];
   };
