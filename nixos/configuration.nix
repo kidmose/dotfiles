@@ -12,6 +12,7 @@
       ./apps/virtualbox.nix
       ./apps/cli.nix
       ./apps/nextcloud-client.nix
+      ./apps/python.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
