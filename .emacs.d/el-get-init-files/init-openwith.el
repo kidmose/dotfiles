@@ -4,4 +4,5 @@
  (quote(
 	("\\.pdf\\'" "evince" (file))
 	("\\.\\(?:jp?g\\|png\\)\\'" "eog" (file))
+	("\\.odt\\'" "libreoffice" (file))
 	)))
