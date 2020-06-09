@@ -52,6 +52,9 @@ bindsym $mod+d exec rofi -show run
 # List windows
 bindsym $mod+Tab exec rofi -show window
 
+# monitor management
+bindsym $mod+p exec autorandr --load common
+bindsym $mod+Shift+p exec autorandr --change
 
 # change focus
 bindsym $mod+j focus left
