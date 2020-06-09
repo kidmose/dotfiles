@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports =
     [
@@ -13,6 +13,7 @@
       ./apps/python.nix
       ./apps/sound.nix
       ./apps/virtualbox.nix
+      ./apps/uhk.nix
       ./hardware-configuration.nix
     ];
 
