@@ -60,7 +60,7 @@ rec {
 
       [vpn-secrets]
       form:main:group_list=SSL
-      form:main:username=${secrets.aau.user}
+      form:main:username=${secrets.aau.email}
       save_passwords=yes
 
       [ipv4]
@@ -106,6 +106,45 @@ rec {
       dns-search=
       method=auto
 
+      [proxy]
+    '';
+    mode = "0400";
+  };
+
+  environment.etc."NetworkManager/system-connections/AAU-1x.nmconnection" = {
+    text = ''
+      [connection]
+      id=AAU-1x
+      uuid=e80d940e-bb0b-4823-87db-78cd07c21db4
+      type=wifi
+      interface-name=wlp3s0
+      permissions=
+      
+      [wifi]
+      mac-address-blacklist=
+      mode=infrastructure
+      ssid=AAU-1x
+      
+      [wifi-security]
+      auth-alg=open
+      key-mgmt=wpa-eap
+      
+      [802-1x]
+      ca-cert=/etc/nixos/aau/aau_net_ca.crt
+      eap=peap;
+      identity=${secrets.aau.email}
+      password=${secrets.aau.pass}
+      phase2-auth=mschapv2
+      
+      [ipv4]
+      dns-search=
+      method=auto
+      
+      [ipv6]
+      addr-gen-mode=stable-privacy
+      dns-search=
+      method=auto
+      
       [proxy]
     '';
     mode = "0400";
