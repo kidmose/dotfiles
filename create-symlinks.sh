@@ -125,6 +125,7 @@ link_files_in_dir_to_home () {
 link_directory_to_home .emacs.d
 ln -s ~/git-reps/dotfiles/.config/i3 ~/.config/i3 # TODO: More elegant?
 ln -s ~/git-reps/dotfiles/.config/i3status ~/.config/i3status
-ln -  ~/git-reps/dotfiles/.config/autorandr .config/autorandr
+ln -s  ~/git-reps/dotfiles/.config/autorandr .config/autorandr
+ln -s  ~/git-reps/dotfiles/.config/mimeapps.list .config/mimeapps.list
 link_files_in_dir_to_home .
 # TODO: Link for /etc/nixos
