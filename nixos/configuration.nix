@@ -1,4 +1,7 @@
 { config, lib, pkgs, ... }:
+let
+  s = import ./secrets.nix;
+in
 {
   imports =
     [
@@ -55,9 +58,12 @@
   
   # Users, groups and rights
   users.users.root.initialHashedPassword = "!"; # Don't leave it blank (IIRC leaving it blank will cause passwd prompt during install)
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.egk = {
+  # Define a user account.
+  users.mutableUsers = false;
+  users.users.${s.os.user.name} = {
     isNormalUser = true;
+    description = s.os.user.description;
+    hashedPassword = s.os.user.hashedPassword;
     extraGroups = [
       "wheel"  # Enable ‘sudo’ for the user.
       "docker"
