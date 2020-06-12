@@ -19,7 +19,7 @@
       davmail.caldavPort = 1080;
       # disable by setting to empty
       davmail.imapPort = ""; # 1143;
-      davmail.ldapPort = ""; # 1389;
+      davmail.ldapPort = 1389; # 1389;
       davmail.popPort = ""; # 1110;
       davmail.smtpPort = ""; # 1025;
       # logging
