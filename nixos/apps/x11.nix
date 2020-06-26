@@ -41,7 +41,10 @@
   services.xserver = {
     enable = true;
     layout = "dk";
-    xkbOptions = "eurosign:e";
+    xkbOptions = builtins.concatStringsSep ", " [ # https://github.com/NixOS/nixpkgs/pull/73394
+      "eurosign:e"
+      "caps:ctrl_modifier"
+    ];
     # Enable touchpad support.
     libinput.enable = true;
   };
