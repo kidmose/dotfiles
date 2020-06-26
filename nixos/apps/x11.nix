@@ -5,6 +5,7 @@
     # xcape
     # hsetroot
     arandr                    # UI for xrandr (display controlling)
+    clipmenu
   ];
 
   # Monitor management
@@ -22,6 +23,10 @@
       RemainAfterExit = false;
     };
   };
+
+  services.clipmenu.enable = true; # light clipboard manager
+  environment.variables.CM_LAUNCHER = "rofi"; # use rofi in clipmanager
+
 
   services.tlp = { # Power Management
     extraConfig = ''
