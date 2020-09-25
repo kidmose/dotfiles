@@ -1,4 +1,4 @@
-# Network config for my AAU laptop
+# Network config for my workstation
 { config, lib, pkgs, ... }:
 
 let secrets = import ../secrets.nix;

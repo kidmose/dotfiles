@@ -6,7 +6,6 @@ in
   imports =
     [
       ./aau/aau.nix
-      ./aau/networking-egk-ThinkPad-T450s.nix
       ./apps/cli.nix
       ./apps/emacs.nix
       ./apps/encryption-secrets.nix
@@ -18,6 +17,7 @@ in
       ./apps/virtualbox.nix
       ./apps/uhk.nix
       ./hardware-configuration.nix
+      ./networking.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
