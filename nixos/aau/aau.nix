@@ -1,11 +1,6 @@
 # AAU specific stuff
 {config, pkgs, ...}:
 {
-  imports =
-    [
-      <nixos-hardware/lenovo/thinkpad/t450s>
-    ];
-  
   # DavMail: Expose Exchange in a more open way
   services.davmail = {
     enable = true;

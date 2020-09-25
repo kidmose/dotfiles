@@ -57,7 +57,7 @@ in
   virtualisation.docker.enable = true;
   
   # Users, groups and rights
-  users.users.root.initialHashedPassword = "!"; # Don't leave it blank (IIRC leaving it blank will cause passwd prompt during install)
+  users.users.root.initialHashedPassword = ""; # Leave it blank, will cause passwd prompt during install
   # Define a user account.
   users.mutableUsers = false;
   users.users.${s.os.user.name} = {
@@ -77,3 +77,4 @@ in
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
 }
+
