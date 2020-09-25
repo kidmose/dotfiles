@@ -5,6 +5,7 @@
     # xcape
     # hsetroot
     arandr                    # UI for xrandr (display controlling)
+    clipmenu
   ];
 
   # Monitor management
@@ -23,6 +24,10 @@
     };
   };
 
+  services.clipmenu.enable = true; # light clipboard manager
+  environment.variables.CM_LAUNCHER = "rofi"; # use rofi in clipmanager
+
+
   services.tlp = { # Power Management
     extraConfig = ''
       # DISK_DEVICES="nvme0n1"
@@ -36,7 +41,10 @@
   services.xserver = {
     enable = true;
     layout = "dk";
-    xkbOptions = "eurosign:e";
+    xkbOptions = builtins.concatStringsSep ", " [ # https://github.com/NixOS/nixpkgs/pull/73394
+      "eurosign:e"
+      "caps:ctrl_modifier"
+    ];
     # Enable touchpad support.
     libinput.enable = true;
   };

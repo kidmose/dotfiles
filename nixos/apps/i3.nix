@@ -43,6 +43,9 @@
     displayManager = {
       lightdm.enable = true; # manages log-in
       defaultSession = "none+i3";
+      sessionCommands = ''
+        xsetroot -solid black &
+      '';
     };
 
     desktopManager = {

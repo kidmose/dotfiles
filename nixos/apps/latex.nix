@@ -17,6 +17,7 @@
       collection-latex
       collection-latexrecommended
       collection-latexextra # fixme.sty
+      metafont # mf command line util for fonts (latex package ifsym)
                       ;})
     evince
   ];
