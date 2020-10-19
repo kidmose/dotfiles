@@ -51,6 +51,7 @@ in
     teams
     thunderbird
     vlc
+    xfce.xfce4-terminal
   ];
 
   # docker
