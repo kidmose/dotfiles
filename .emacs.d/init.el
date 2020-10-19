@@ -65,11 +65,12 @@
     (setq org-log-done t)
     (setq org-agenda-files (list "~/notes.org"))
     (setq org-todo-keywords
-          '((sequence "TODO"  "WAITNG" "|" "DONE" "DELEGATED" "SCRAPPED")))
+          '((sequence "TODO"  "WAITNG" "BACKLOG" "|" "DONE" "DELEGATED" "SCRAPPED")))
     (add-to-list 'org-modules 'org-tempo)
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((python . t)))
+    (setq org-confirm-babel-evaluate nil)
     ))
 
 (use-package tex
@@ -105,6 +106,9 @@
   :ensure t
   :after (auctex)
   )
+
+(use-package nix-mode
+  :ensure t)
 
 ;; (use-package flycheck
 ;;   :ensure t
