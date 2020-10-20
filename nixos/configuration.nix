@@ -6,7 +6,6 @@ in
   imports =
     [
       ./aau/aau.nix
-      ./aau/networking-egk-ThinkPad-T450s.nix
       ./apps/cli.nix
       ./apps/emacs.nix
       ./apps/encryption-secrets.nix
@@ -18,6 +17,7 @@ in
       ./apps/virtualbox.nix
       ./apps/uhk.nix
       ./hardware-configuration.nix
+      ./networking.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
@@ -51,13 +51,14 @@ in
     teams
     thunderbird
     vlc
+    xfce.xfce4-terminal
   ];
 
   # docker
   virtualisation.docker.enable = true;
   
   # Users, groups and rights
-  users.users.root.initialHashedPassword = "!"; # Don't leave it blank (IIRC leaving it blank will cause passwd prompt during install)
+  users.users.root.initialHashedPassword = ""; # Leave it blank, will cause passwd prompt during install
   # Define a user account.
   users.mutableUsers = false;
   users.users.${s.os.user.name} = {
@@ -77,3 +78,4 @@ in
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = false;
 }
+

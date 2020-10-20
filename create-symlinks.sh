@@ -122,10 +122,16 @@ link_files_in_dir_to_home () {
     done
 }
 
-link_directory_to_home .emacs.d
-ln -s ~/git-reps/dotfiles/.config/i3 ~/.config/i3 # TODO: More elegant?
+# link_directory_to_home .emacs.d
+ln -s ~/git-reps/dotfiles/.emacs.d ~/.emacs.d
+ln -s ~/git-reps/dotfiles/.git ~/.git
+ln -s ~/git-reps/dotfiles/.gitignore ~/.gitignore
+ln -s ~/git-reps/dotfiles/.gnupg ~/.gnupg
+
+ln -s ~/git-reps/dotfiles/.config/i3 ~/.config/i3
 ln -s ~/git-reps/dotfiles/.config/i3status ~/.config/i3status
-ln -s  ~/git-reps/dotfiles/.config/autorandr .config/autorandr
-ln -s  ~/git-reps/dotfiles/.config/mimeapps.list .config/mimeapps.list
-link_files_in_dir_to_home .
-# TODO: Link for /etc/nixos
+ln -s ~/git-reps/dotfiles/.config/autorandr ~/.config/autorandr
+ln -s ~/git-reps/dotfiles/.config/mimeapps.list ~/.config/mimeapps.list
+ln -s ~/git-reps/dotfiles/.config/xfce ~/.config/xfce
+
+# link_files_in_dir_to_home .
