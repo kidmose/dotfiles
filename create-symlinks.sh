@@ -127,6 +127,7 @@ ln -s ~/git-reps/dotfiles/.emacs.d ~/.emacs.d
 ln -s ~/git-reps/dotfiles/.git ~/.git
 ln -s ~/git-reps/dotfiles/.gitignore ~/.gitignore
 ln -s ~/git-reps/dotfiles/.gnupg ~/.gnupg
+ln -s ~/git-reps/dotfiles/.bashrc ~/.bashrc
 
 ln -s ~/git-reps/dotfiles/.config/i3 ~/.config/i3
 ln -s ~/git-reps/dotfiles/.config/i3status ~/.config/i3status
