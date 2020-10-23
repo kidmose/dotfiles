@@ -132,6 +132,6 @@ ln -s ~/git-reps/dotfiles/.config/i3 ~/.config/i3
 ln -s ~/git-reps/dotfiles/.config/i3status ~/.config/i3status
 ln -s ~/git-reps/dotfiles/.config/autorandr ~/.config/autorandr
 ln -s ~/git-reps/dotfiles/.config/mimeapps.list ~/.config/mimeapps.list
-ln -s ~/git-reps/dotfiles/.config/xfce ~/.config/xfce
+ln -s ~/git-reps/dotfiles/.config/xfce4 ~/.config/xfce4
 
 # link_files_in_dir_to_home .
