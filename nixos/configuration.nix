@@ -37,7 +37,7 @@ in
 
   # Packages to install
   environment.systemPackages = with pkgs; [
-    alacritty
+    curl
     discord
     emacs
     evince
@@ -50,6 +50,7 @@ in
     skype
     teams
     thunderbird
+    tmux
     vlc
     xfce.xfce4-terminal
   ];
