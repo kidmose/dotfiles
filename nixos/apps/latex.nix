@@ -9,16 +9,18 @@
   environment.systemPackages = with pkgs; [
     # LaTeX stuff
     (texlive.combine {inherit (texlive) scheme-minimal
-      collection-langeuropean # danish in babel
-      collection-langenglish
-      collection-publishers # elsarticle.sty
       collection-fontsextra # dsfont.sty
       collection-fontsrecommended # scalable fonts
+      collection-langenglish
+      collection-langeuropean # danish in babel
       collection-latex
-      collection-latexrecommended
       collection-latexextra # fixme.sty
+      collection-latexrecommended
+      collection-pstricks # pstricks.sty
+      collection-publishers # elsarticle.sty
       metafont # mf command line util for fonts (latex package ifsym)
                       ;})
     evince
+    ghostscript # for ps2pdf
   ];
 }
