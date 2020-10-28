@@ -63,9 +63,14 @@
   :config
   (progn
     (setq org-log-done t)
-    (setq org-agenda-files (list "~/notes.org"))
+    (setq org-agenda-files (list "~/.caldav.org" "~/notes.org"))
     (setq org-todo-keywords
-          '((sequence "TODO"  "WAITNG" "BACKLOG" "|" "DONE" "DELEGATED" "SCRAPPED")))
+          '((sequence "TODO"  "WAITING" "BACKLOG" "|" "DONE" "DELEGATED" "SCRAPPED")))
+    (setq org-agenda-sorting-strategy
+          '((agenda habit-down time-up priority-down category-keep)
+            (todo deadline-up timestamp-up todo-state-up)
+            (tags priority-down category-keep)
+            (search category-keep)))
     (add-to-list 'org-modules 'org-tempo)
     (org-babel-do-load-languages
      'org-babel-load-languages
