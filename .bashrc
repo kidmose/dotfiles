@@ -17,7 +17,7 @@ export EDITOR="emacs -nw"
 alias "emacsnw"="emacs -nw"
 
 # Alt-Enter to run in a new detached tmux session
-bind '"\e\C-M":"\C-a\C-ktmux new-session -d \ntmux send-keys '"'"'\C-y'"'"' enter\n'
+bind '"\e\C-M":"\C-atmux new-session -d  '"'"'\C-e'"'"'\n'
 
 # <copy> source="http://stackoverflow.com/questions/9457233/unlimited-bash-history">
 # Eternal bash history.
