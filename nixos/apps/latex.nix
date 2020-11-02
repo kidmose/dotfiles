@@ -19,6 +19,7 @@
       collection-pstricks # pstricks.sty
       collection-publishers # elsarticle.sty
       metafont # mf command line util for fonts (latex package ifsym)
+      tex4ht # htlatex to build html
                       ;})
     evince
     ghostscript # for ps2pdf
