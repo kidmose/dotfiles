@@ -20,25 +20,22 @@
 
   services.xserver = {
     desktopManager = {
+      xterm.enable = false;
       xfce = {
         enable = true;
         thunarPlugins = with pkgs.xfce; [
           thunar-archive-plugin
           thunar_volman
         ];
-
         noDesktop = true;
         enableXfwm = false;
       };
-
-      default = "xfce";
     };
 
     windowManager = {
-      i3.enable = true;
-      default = "i3";
+       i3.enable = true;
     };
 
-    displayManager.lightdm.enable = true;
+    displayManager.defaultSession = "xfce+i3";
   };
 }

@@ -9,7 +9,7 @@ in
       ./apps/cli.nix
       ./apps/emacs.nix
       ./apps/encryption-secrets.nix
-      ./apps/i3.nix
+      ./apps/xfce.nix
       ./apps/latex.nix
       ./apps/nextcloud-client.nix
       ./apps/python.nix
