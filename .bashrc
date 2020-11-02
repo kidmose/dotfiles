@@ -148,3 +148,5 @@ function smbprint() {
 }
 
 
+# nix and nixos related
+NIX_PATH="$NIX_PATH:nixpkgs-overlays=/etc/nixos/overlays" # overlays from os also for tools (nix-env et al.)
