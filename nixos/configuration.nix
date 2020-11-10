@@ -37,7 +37,6 @@ in
 
   # Packages to install
   environment.systemPackages = with pkgs; [
-    curl
     discord
     emacs
     evince
@@ -48,12 +47,12 @@ in
     meld
     pinta
     skype
-    teams
-    thunderbird
-    tmux
     vlc
     xfce.xfce4-terminal
   ];
+
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark; # does *-cli, i.e. tshark, by default
 
   # docker
   virtualisation.docker.enable = true;
@@ -68,9 +67,10 @@ in
     hashedPassword = s.os.user.hashedPassword;
     extraGroups = [
       "wheel"  # Enable ‘sudo’ for the user.
-      "docker"
       "vboxusers"
       "networkmanager"
+      "docker"
+      "wireshark"
     ];
   };
 

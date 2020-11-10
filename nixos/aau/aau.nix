@@ -4,6 +4,13 @@ let
   s = import ../secrets.nix;
 in
 {
+  environment.systemPackages = with pkgs; [
+    teams
+    libreoffice
+    skype
+    thunderbird
+  ];
+
   # DavMail: Expose Exchange in a more open way
   services.davmail = {
     enable = true;
