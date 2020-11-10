@@ -1,5 +1,8 @@
-;;;; Egon Kidmoses emacs configuration file. 
+;;; kidmose-init -- "Egon Kidmoses emacs configuration file"
 ; created 08-may-2013
+;;; Commentary:
+
+;;; Code:
 
 ;; Global customisation
 (load "~/.emacs.d/glob_cust/glob_cust.el" nil t t)
@@ -25,19 +28,8 @@
 ;;         visual-fill-column
 ;; 	bash-completion
 ;; 	ein
-;; 	el-get
-;; 	markdown-mode
 ;; 	openwith
 ;; 	restclient
-;;         ;; python-mode ;; need to run el-get-elpa-build-local-recipes ?
-;;         ;; elpy
-;;         ;; python
-;;         ;; https://smythp.com/emacs/python/2016/04/27/pyenv-elpy.html
-;;         flycheck ;; need to run el-get-elpa-build-local-recipes ?
-;;         ;; py-autopep8
-;;         ;; blacken
-;;         ;; pyenv-mode f ;; manually installed dependency: f
-;;         ;; pyenv-mode-auto
 ;; 	))
 ;; (el-get 'sync my-packages)
 
@@ -53,6 +45,8 @@
 ;; Reduce load time
 (eval-when-compile (require 'use-package))
 
+
+;; Org stuff
 (use-package org
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
@@ -78,11 +72,17 @@
     (setq org-confirm-babel-evaluate nil)
     ))
 
+(use-package ox-md
+  :ensure nil
+  :after org)
+
+;; LaTeX
 (use-package tex
   :ensure auctex ; Because package and mode file names are not the same
   :config (load-file "~/.emacs.d/el-get-init-files/init-auctex.el") ;; TODO: Clean this up
   )
 
+;; Miscellaneous
 (use-package magit
   :ensure t
   :config
@@ -102,11 +102,6 @@
     (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
     ))
 
-(use-package flyspell 
-    :after (org python)
-    :config
-    (flyspell-mode))
-
 (use-package visual-fill-column
   :ensure t
   :after (auctex)
@@ -115,18 +110,55 @@
 (use-package nix-mode
   :ensure t)
 
-;; (use-package flycheck
-;;   :ensure t
-;;   :commands flycheck-mode
-;;   :init (add-hook 'prog-mode-hook 'flycheck-mode)
-;;   :config
-;;   (progn
-;;     (setq-default flycheck-emacs-lisp-initialize-packages t
-;;                   flycheck-highlighting-mode 'lines
-;;                   flycheck-check-syntax-automatically '(save)
-;;                   flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
-;;     ))
+(use-package markdown-mode
+  :ensure t)
 
+(use-package yaml-mode
+  :ensure t)
+
+;; Checking
+(use-package flyspell
+  :after (org python)
+  :config (flyspell-mode)
+  :init (add-hook 'markdown-mode-hook 'flyspell-mode))
+                                        ;TODO: Do flyspell on python comments and docstrings?
+
+(use-package flycheck
+  :commands flycheck-mode
+  :init (add-hook 'prog-mode-hook 'flycheck-mode)
+  :config
+  (progn
+    (setq-default flycheck-emacs-lisp-initialize-packages t
+                  flycheck-highlighting-mode 'lines
+                  flycheck-check-syntax-automatically '(save)
+                  flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
+    ))
+
+
+;; Python stuff
+(use-package elpy
+  :ensure t
+  :defer t
+  :init (advice-add 'python-mode :before 'elpy-enable)
+  :config  (setq elpy-modules ;; Take away the Flymake that is causing
+                              ;; trouble on nixos
+                 (quote (elpy-module-company
+                         elpy-module-eldoc
+                         elpy-module-pyvenv
+                         elpy-module-highlight-indentation
+                         elpy-module-yasnippet
+                         elpy-module-django
+                         elpy-module-sane-defaults))) )
+
+;     (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
+
+
+(use-package python-black
+  :ensure t
+  :defer t
+  :init (add-hook 'python-mode-hook 'python-black-on-save-mode))
+
+;; Emacs built-in customisation
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -143,3 +175,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(font-lock-type-face ((t (:foreground "ForestGreen")))))
+
+(provide 'init)
+;;; init.el ends here
