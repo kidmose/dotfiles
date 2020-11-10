@@ -149,4 +149,36 @@ rec {
     '';
     mode = "0400";
   };
+
+  environment.etc."NetworkManager/system-connections/aau-vpn.nmconnection" = {
+    text = ''
+      [connection]
+      id=Wi-Fi connection 1
+      uuid=e4f73374-ddea-41dc-9665-688cf4b113d3
+      type=wifi
+      permissions=
+
+      [wifi]
+      mac-address-blacklist=
+      mode=infrastructure
+      ssid=${secrets.iphone.wifi.ssid}
+
+      [wifi-security]
+      key-mgmt=wpa-psk
+      psk=${secrets.iphone.wifi.psk}
+
+      [ipv4]
+      dns-search=
+      method=auto
+
+      [ipv6]
+      addr-gen-mode=stable-privacy
+      dns-search=
+      ip6-privacy=0
+      method=auto
+
+      [proxy]
+    '';
+    mode = "0400";
+  };
 }
