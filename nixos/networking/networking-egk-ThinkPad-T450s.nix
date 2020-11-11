@@ -150,10 +150,10 @@ rec {
     mode = "0400";
   };
 
-  environment.etc."NetworkManager/system-connections/aau-vpn.nmconnection" = {
+  environment.etc."NetworkManager/system-connections/iphone.nmconnection" = {
     text = ''
       [connection]
-      id=Wi-Fi connection 1
+      id=${secrets.iphone.wifi.ssid}
       uuid=e4f73374-ddea-41dc-9665-688cf4b113d3
       type=wifi
       permissions=

@@ -124,6 +124,7 @@
                                         ;TODO: Do flyspell on python comments and docstrings?
 
 (use-package flycheck
+  :ensure t
   :commands flycheck-mode
   :init (add-hook 'prog-mode-hook 'flycheck-mode)
   :config
@@ -165,6 +166,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode nil)
+ '(initial-major-mode (quote org-mode))
  '(initial-scratch-message nil)
  '(ispell-dictionary "en_GB")
  '(package-selected-packages (quote (use-package org-plus-contrib)))
