@@ -62,7 +62,7 @@
           '((sequence "TODO"  "WAITING" "BACKLOG" "|" "DONE" "DELEGATED" "SCRAPPED")))
     (setq org-agenda-sorting-strategy
           '((agenda habit-down time-up priority-down category-keep)
-            (todo deadline-up timestamp-up todo-state-up)
+            (todo deadline-up timestamp-up todo-state-up category-keep)
             (tags priority-down category-keep)
             (search category-keep)))
     (add-to-list 'org-modules 'org-tempo)
@@ -70,6 +70,20 @@
      'org-babel-load-languages
      '((python . t)))
     (setq org-confirm-babel-evaluate nil)
+    ;; (defun org-reveal-tidy ()
+    ;;   (interactive)
+    ;;   "Reveal current entry, fold all others."
+    ;;   (if (save-excursion (end-of-line) (outline-invisible-p))
+    ;;       (progn (org-show-entry) (show-children))
+    ;;     (outline-back-to-heading)
+    ;;     (unless (and (bolp) (org-on-heading-p))
+    ;;       (org-up-heading-safe)
+    ;;       (hide-subtree)
+    ;;       (error "Boundary reached"))
+    ;;     (org-overview)
+    ;;     (org-reveal t)
+    ;;     (org-show-entry)
+    ;;     (show-children)))
     ))
 
 (use-package ox-md
@@ -169,7 +183,6 @@
  '(initial-major-mode (quote org-mode))
  '(initial-scratch-message nil)
  '(ispell-dictionary "en_GB")
- '(package-selected-packages (quote (use-package org-plus-contrib)))
  '(safe-local-variable-values (quote ((encoding . utf-8)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
