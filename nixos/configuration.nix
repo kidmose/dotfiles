@@ -7,6 +7,7 @@ in
     [
       ./aau/aau.nix
       ./apps/cli.nix
+      ./apps/gui.nix
       ./apps/emacs.nix
       ./apps/encryption-secrets.nix
       ./apps/i3.nix
