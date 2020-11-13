@@ -18,4 +18,12 @@
   nix.maxJobs = lib.mkDefault 12;
   # High-DPI console
   console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+
+  # AMD GPU
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.opengl.extraPackages = with pkgs; [
+    # rocm-opencl-icd  # NixOS Unstable
+    amdappsdk  # NixOS 20.03, uses the CPU, not the GPU
+  ];
 }
