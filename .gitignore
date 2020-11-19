@@ -1,2 +1,4 @@
 /.emacs.d/transient/
 /.emacs.d/elpy/
+*.qcow2
+/nixos/vms/*/result

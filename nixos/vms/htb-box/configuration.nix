@@ -5,13 +5,10 @@ in
 {
   imports = [
     ../../apps/cli.nix
-    ../../apps/emacs.nix
-    ../../apps/i3.nix
     ../../apps/python.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
-
   # Boot loader
   boot.loader.timeout = 0;
 
@@ -23,14 +20,6 @@ in
   };
   time.timeZone = "Europe/Copenhagen";
 
-  environment.systemPackages = with pkgs; [
-  ];
-  programs.wireshark.enable = true;
-  programs.wireshark.package = pkgs.wireshark; # does *-cli, i.e. tshark, by default
-
-  # docker
-  virtualisation.docker.enable = true;
-
   users.mutableUsers = false;
   users.users.root.hashedPassword = "*";
   users.users.${s.os.user.name} = {
@@ -39,18 +28,35 @@ in
     hashedPassword = s.os.user.hashedPassword;
     extraGroups = [
       "wheel"  # Enable ‘sudo’ for the user.
-      "vboxsf"
       "networkmanager"
       "docker"
       "wireshark"
     ];
+    openssh.authorizedKeys.keys = s.os.user.keys;
   };
-  services.mingetty.autologinUser = s.os.user.name;
 
-  virtualisation.virtualbox.guest.enable = true;
-
-  services.xserver.displayManager.lightdm = {
-    autoLogin.enable = true;
-    autoLogin.user = "${s.os.user.name}";
+  services.openssh = {
+    enable = true;
+    forwardX11 = true;
+    permitRootLogin = "no";
   };
+  
+  # services.xserver = {
+  #   enable = true;
+  #   layout = "dk";
+  #   xkbOptions = builtins.concatStringsSep ", " [ # https://github.com/NixOS/nixpkgs/pull/73394
+  #     "eurosign:e"
+  #     "caps:ctrl_modifier"
+  #   ];
+  # };
+
+  # docker
+  virtualisation.docker.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    firefox
+  ];
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark; # does *-cli, i.e. tshark, by default
+
 }
