@@ -34,6 +34,7 @@ in
     ];
     openssh.authorizedKeys.keys = s.os.user.keys;
   };
+  security.sudo.wheelNeedsPassword = false;
 
   services.openssh = {
     enable = true;
@@ -41,15 +42,6 @@ in
     permitRootLogin = "no";
   };
   
-  # services.xserver = {
-  #   enable = true;
-  #   layout = "dk";
-  #   xkbOptions = builtins.concatStringsSep ", " [ # https://github.com/NixOS/nixpkgs/pull/73394
-  #     "eurosign:e"
-  #     "caps:ctrl_modifier"
-  #   ];
-  # };
-
   # docker
   virtualisation.docker.enable = true;
 
