@@ -6,6 +6,7 @@ in
   imports = [
     ../../apps/cli.nix
     ../../apps/python.nix
+    ./tools.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -41,12 +42,15 @@ in
     forwardX11 = true;
     permitRootLogin = "no";
   };
-  
+
+  services.openvpn.servers.htb.config = (builtins.readFile ./profile.ovpn);
+
   # docker
   virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
     firefox
+    emacs-nox # Because X11 forwarding emacs is broken
   ];
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark; # does *-cli, i.e. tshark, by default

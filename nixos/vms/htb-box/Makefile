@@ -4,10 +4,11 @@
 # Specify "Hostname", "Port", and "User" for a "Host" named "target" in `./ssh-config`
 
 push: $(wildcard *.nix)
-	outPath=$$(nix-build -A vmSystem --arg configuration ./configuration.nix); \
-	NIX_SSHOPTS="-F ssh-config" nix-copy-closure --to "target" --gzip "$$outPath"; \
-	ssh -F ssh-config target sudo nix-env --profile "/nix/var/nix/profiles/system" --set "$$outPath"; \
-	ssh -F ssh-config target sudo $$outPath/bin/switch-to-configuration test
+	nix-build -A vmSystem --arg configuration ./configuration.nix
+	echo "Result: $$(readlink -f result)"
+	NIX_SSHOPTS="-F ssh-config" nix-copy-closure --to "target" --gzip "$$(readlink -f result)"
+	ssh -F ssh-config target sudo nix-env --profile "/nix/var/nix/profiles/system" --set "$$(readlink -f result)"
+	ssh -F ssh-config target sudo "$$(readlink -f result)/bin/switch-to-configuration test"
 
 local: $(wildcard *.nix)
 	nix-build '<nixpkgs/nixos>' -A vm --arg configuration ./configuration.nix
