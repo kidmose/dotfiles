@@ -171,7 +171,8 @@
 (use-package python-black
   :ensure t
   :defer t
-  :init (add-hook 'python-mode-hook 'python-black-on-save-mode))
+  :init (add-hook 'python-mode-hook 'python-black-on-save-mode)
+  :config (setq python-black-command "black"))
 
 ;; Emacs built-in customisation
 (custom-set-variables

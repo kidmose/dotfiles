@@ -5,17 +5,17 @@ in {
   # Fix python to have the modules I frequently use
   environment.systemPackages = [
     ( python.buildEnv.override  {
-      extraLibs = with pkgs.python37Packages; [ # 3.7 because black fails on 3.8
+      extraLibs = with pkgs.python38Packages; [
         numpy
         ipython
         jupyter
+        jupyterlab
         pandas
 
         # used by emacs::flymake-mode
         pyflakes
 
         # used by emacs::elpy-mode
-        black
         jedi
         setuptools
         flake8
