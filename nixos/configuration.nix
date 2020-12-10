@@ -25,7 +25,6 @@ in
   nixpkgs.overlays = [
     (import /etc/nixos/overlays/nextcloud-client.nix)
     (import /etc/nixos/overlays/ical2orgWithTimespans.nix)
-    (import /etc/nixos/overlays/teams.nix)
   ];
 
   # Boot loader
