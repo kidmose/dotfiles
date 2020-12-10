@@ -27,7 +27,6 @@
 ;;       '(
 ;;         visual-fill-column
 ;; 	bash-completion
-;; 	ein
 ;; 	openwith
 ;; 	restclient
 ;; 	))
@@ -35,8 +34,16 @@
 
 ;; Trying out package.el and use-package
 (require 'package)
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(setq package-archives
+      '(("MELPA Stable" . "https://stable.melpa.org/packages/")
+        ("ORG"          . "http://orgmode.org/elpa/")
+        ("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+        ("MELPA"        . "https://melpa.org/packages/")))
+(setq package-archive-priorities
+      '(("MELPA Stable" . 10)
+        ("ORG"          . 10)
+        ("GNU ELPA"     . 6)
+        ("MELPA"        . 4)))
 (package-initialize)
 ;; Download use-package
 (unless (package-installed-p 'use-package)
@@ -173,6 +180,12 @@
   :defer t
   :init (add-hook 'python-mode-hook 'python-black-on-save-mode)
   :config (setq python-black-command "black"))
+
+(use-package ein
+  :ensure t
+  :commands (ein:notebooklist-open))
+;; ein from melpa stable is not supported
+(add-to-list 'package-archive-priorities '(ein . "MELPA"))
 
 ;; Emacs built-in customisation
 (custom-set-variables
