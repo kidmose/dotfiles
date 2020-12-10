@@ -8,8 +8,10 @@
     discount # markdown
     file
     git
+    gitAndTools.gitflow
     htop
-    inetutils
+    # inetutils
+    traceroute
     jq
     lsof
     p7zip
