@@ -75,7 +75,8 @@
     (add-to-list 'org-modules 'org-tempo)
     (org-babel-do-load-languages
      'org-babel-load-languages
-     '((python . t)))
+     '((shell . t)
+       (python . t)))
     (setq org-confirm-babel-evaluate nil)
     ;; (defun org-reveal-tidy ()
     ;;   (interactive)
@@ -91,6 +92,7 @@
     ;;     (org-reveal t)
     ;;     (org-show-entry)
     ;;     (show-children)))
+    (setq org-agenda-files (quote ("~/notes.org" "~/.caldav.org")))
     ))
 
 (use-package ox-md
@@ -108,7 +110,6 @@
   :ensure t
   :config
   (progn
-    (setq magit-last-seen-setup-instructions "1.4.0")
     (setq magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
     (setq magit-diff-refine-hunk (quote all))
     (add-hook 'magit-mode-hook (lambda () (toggle-truncate-lines -1))) ; Fold long lines
