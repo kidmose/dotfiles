@@ -9,6 +9,17 @@ in
     ./tools.nix
   ];
 
+  fileSystems = pkgs.lib.mkVMOverride (
+    {
+      "/home/${s.os.user.name}" = {
+        device = "home";
+        fsType = "9p";
+        options = [ "trans=virtio" "version=9p2000.L" ];
+        neededForBoot = true;
+      };
+    }
+  );
+
   nixpkgs.config.allowUnfree = true;
   # Boot loader
   boot.loader.timeout = 0;

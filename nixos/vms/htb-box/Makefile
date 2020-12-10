@@ -12,7 +12,9 @@ push: $(wildcard *.nix)
 
 local: $(wildcard *.nix)
 	nix-build '<nixpkgs/nixos>' -A vm --arg configuration ./configuration.nix
-	QEMU_NET_OPTS=hostfwd=tcp::2221-:22 ./result/bin/run-nixos-vm -smp $$(nproc) -m 8G -display none 
+	QEMU_NET_OPTS=hostfwd=tcp::2221-:22 ./result/bin/run-nixos-vm -smp $$(nproc) \
+	 -m 8G -display none \
+	 -virtfs local,path=$$(readlink -f ./home),security_model=none,mount_tag=home
 
 clean:
 	rm -v result nixos.qcow2
