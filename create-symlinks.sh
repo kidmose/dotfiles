@@ -1,4 +1,9 @@
-# Shamelessly lifted from: https://github.com/tpanum/dotfiles/blob/d4f2e844e4579b2f8b0fcf9e5dcfffb75507a001/sync.sh
+#!/usr/bin/env bash
+
+# Some fancy unicode
+V="\xE2\x9C\x85" # Checkmark
+X="\xE2\x9D\x8C" # Red cross
+W="\xe2\x9a\xa0\xef\xb8\x8f" # Warning
 
 if [ -z "$HOME" ]; then
     echo "HOME (~) is undefined, cannot sync"
@@ -8,132 +13,46 @@ fi
 # remove suffix slash if exist
 HOME=${HOME%"/"}
 
-overwrite_prompt () {
-    link=$(readlink -f $1)
-    while true; do
-        read -n 1 -p "$1 is linked to other directory ($link). [o]verwrite, or [i]gnore? " oi
-        case $oi in
-            [Oo]* ) echo "overwrite"; break;;
-            [Ii]* ) break;;
-            * ) echo "Please answer [o]verwrite, or [i]gnore.";;
-        esac
-    done
+make_link () {
+    # TODO: Accept one and two args; One is name of folder here that
+    # should also be in home, two is desired TARGET and LINK
+    # 
+    # TODO: Handle that e.g. ./.config hold various folders that
+    # should be symlinked individually (and parent folders should be
+    # created as needed)
+    TARGET="$(pwd)/$1"
+    LINK="$HOME/$1"
+
+    if [[ ! -e "$LINK" && ! -L "$LINK" ]]; then # can be a broken link (which doesn't -e but is -L)
+        ln -s "$TARGET" "$LINK"
+        echo -e "$V Created link for $1"
+        
+    elif [[ ! -L "$LINK" ]]; then
+         >&2 echo -e "$W $LINK already exists and is not a symlink"
+
+    elif [[ -L "$LINK" ]]; then
+        if [[ "$(readlink -f $TARGET)" == "$(readlink -f $LINK)" ]]; then
+            echo -e "$V $1 already exists"
+        else
+            >&2 echo -e "$W $1 already exists, but points to $(readlink -f $LINK) rather than $TARGET"
+        fi
+    else
+        >&2 echo -e "$X I don't know how to handle $TARGET"
+        exit 1
+    fi
 }
 
-link_directory_to_home () {
-    for f in $(ls -d $1)
-    do
-        # check if directory
-        if ! [[ -d "$f" ]]
-        then
-            continue
-        fi
-
-        dir=${f#"./"}
-        target=$(echo "$HOME/$dir")
-
-        if [[ -L "$target" ]]
-        then
-            # target exist
-            if ! [ "$target" -ef "$dir" ]
-            then
-                # target is not expected
-                action=$(overwrite_prompt $target)
-                if [ -z $action ]
-                then
-                    # ignore
-                    echo "$dir is being ignored."
-                    continue
-                else
-                    # overwrite
-                    rm $target
-                fi
-            else
-                echo -e "\e[32m✓\e[39m $dir"
-                continue
-            fi
-        fi
-
-	echo "$target"
-
-        ln -s $(realpath $dir) $target
-    done
-}
-
-link_directory () {
-    echo "Linking... $1"
-
-    for f in $(ls --ignore ".git" --ignore "*.nosync" "$1")
-    do
-        f="$1/$f"
-        # ignore items with .nosync suffix
-        if [[ $f == *.nosync ]]
-        then
-            continue
-        fi
-
-        # is directory?
-        if [[ -d "$f" ]]
-        then
-            echo "$f: Directory"
-            link_directory $f
-            continue
-        fi
-
-        if [[ -f "$f" ]]
-        then
-            echo "$f: File"
-            continue
-        fi
-    done
-}
-
-link_files_in_dir_to_home () {
-    dir=${1%"/"}
-
-    for base in $(ls -al $1 --ignore "*.example" | grep '^-' | awk '{ print $9 }')
-    do
-        # if starts with hashtag, then it is emacs file
-        if [[ $base =~ ^# ]]
-        then
-            continue
-        fi
-
-        # ignore .example files
-        if [[ $base =~ *.example$ ]]
-        then
-            continue
-        fi
-
-        # ignore this file
-        if [[ $base =~ ^sync ]]
-        then
-            continue
-        fi
-
-        f="$dir/$base"
-
-
-        echo -e "\e[32m✓\e[39m $base"
-
-	if ! [ -L "$HOME/$base" ]; then
-	    ln -s $(realpath $f) "$HOME/$base" 2>&1 > /dev/null
-	fi
-    done
-}
-
-# link_directory_to_home .emacs.d
-ln -s ~/git-reps/dotfiles/.emacs.d ~/.emacs.d
-ln -s ~/git-reps/dotfiles/.git ~/.git
-ln -s ~/git-reps/dotfiles/.gitignore ~/.gitignore
-ln -s ~/git-reps/dotfiles/.gnupg ~/.gnupg
-ln -s ~/git-reps/dotfiles/.bashrc ~/.bashrc
-ln -s ~/git-reps/dotfiles/.tmux.conf ~/.tmux.conf
-
-ln -s ~/git-reps/dotfiles/.config/i3 ~/.config/i3
-ln -s ~/git-reps/dotfiles/.config/i3status ~/.config/i3status
-ln -s ~/git-reps/dotfiles/.config/autorandr ~/.config/autorandr
-ln -s ~/git-reps/dotfiles/.config/mimeapps.list ~/.config/mimeapps.list
-ln -s ~/git-reps/dotfiles/.config/xfce4 ~/.config/xfce4
-
-# link_files_in_dir_to_home .
+    
+# Do the linking;
+make_link .emacs.d
+make_link .bashrc
+make_link .git
+make_link .gitignore
+make_link .gnupg
+make_link .tmux.conf
+# See TODOs above on how these entries should be supported
+# make_link .nixos /etc/nixos
+# make_link .config/autorandr
+# make_link .config/i3
+# make_link .config/i3status
+# make_link .config/mimeapps.list
