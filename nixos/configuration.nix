@@ -23,7 +23,6 @@ in
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
-    (import /etc/nixos/overlays/nextcloud-client.nix)
     (import /etc/nixos/overlays/ical2orgWithTimespans.nix)
   ];
 
