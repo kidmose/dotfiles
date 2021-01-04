@@ -77,6 +77,7 @@ in
       "wireshark"
     ];
   };
+  security.sudo.wheelNeedsPassword = false;
 
   # OS config
   system.stateVersion = "20.03"; # Did you read the comment?
