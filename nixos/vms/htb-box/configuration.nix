@@ -48,6 +48,14 @@ in
   };
   security.sudo.wheelNeedsPassword = false;
 
+  environment.interactiveShellInit = ''
+    if test -f ~/.bashrc; then
+        if [ -n "''${BASH_VERSION:-}" ]; then
+            . ~/.bashrc
+        fi
+    fi
+  '';
+
   services.openssh = {
     enable = true;
     forwardX11 = true;
