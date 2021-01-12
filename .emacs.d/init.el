@@ -64,7 +64,7 @@
   :config
   (progn
     (setq org-log-done t)
-    (setq org-agenda-files (list "~/.caldav.org" "~/notes.org"))
+    (setq org-agenda-files (list "~/org/"))
     (setq org-todo-keywords
           '((sequence "TODO"  "WAITING" "BACKLOG" "|" "DONE" "DELEGATED" "SCRAPPED")))
     (setq org-agenda-sorting-strategy
@@ -92,7 +92,6 @@
     ;;     (org-reveal t)
     ;;     (org-show-entry)
     ;;     (show-children)))
-    (setq org-agenda-files (quote ("~/notes.org" "~/.caldav.org")))
     ))
 
 (use-package ox-md

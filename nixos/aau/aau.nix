@@ -2,6 +2,7 @@
 {config, pkgs, ...}:
 let
   s = import ../secrets.nix;
+  caldavOutPath = "~/org/caldav.org";
 in
 {
   environment.systemPackages = with pkgs; [
@@ -44,8 +45,8 @@ in
   #     $ secret-tool store --label=davmail caldav2org password
   #
   systemd.user.services.caldav2org = {
-    description = "Fetch events from local caldav service and save them as ~/.caldav.org";
-    script = "${pkgs.curl}/bin/curl -sS -u ${s.aau.email}:$(${pkgs.libsecret}/bin/secret-tool lookup caldav2org password) localhost:${toString config.services.davmail.config.davmail.caldavPort}/users/${s.aau.email}/calendar/ | ${pkgs.coreutils}/bin/tee .caldav.ics | ${pkgs.ical2org}/bin/ical2org -o ~/.caldav.org -";
+    description = "Fetch events from local caldav service and save them as ${caldavOutPath}";
+    script = "${pkgs.curl}/bin/curl -sS -u ${s.aau.email}:$(${pkgs.libsecret}/bin/secret-tool lookup caldav2org password) localhost:${toString config.services.davmail.config.davmail.caldavPort}/users/${s.aau.email}/calendar/ | ${pkgs.ical2org}/bin/ical2org -o ${caldavOutPath} -";
     serviceConfig = {
       StartLimitInterval = 5;
       StartLimitBurst = 1;
