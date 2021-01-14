@@ -1,0 +1,8 @@
+# Tracked in on git and shared accros machines. Use ~/.gitconfig.local
+# for machine-global configurations.
+[core]
+        attributesFile = ~/.gitattributes
+[diff "ipynb"]
+        textconv=~/bin/git-textconv-ipynb.py
+[include]
+        path = ~/.gitconfig.local

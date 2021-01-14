@@ -46,9 +46,12 @@ make_link () {
 # Do the linking;
 make_link .emacs.d
 make_link .bashrc
+make_link .gitconfig
 make_link .gitignore
+make_link .gitattributes
 make_link .gnupg
 make_link .tmux.conf
+make_link bin
 # See TODOs above on how these entries should be supported
 # make_link .nixos /etc/nixos
 # make_link .config/autorandr
