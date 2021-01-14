@@ -46,7 +46,6 @@ make_link () {
 # Do the linking;
 make_link .emacs.d
 make_link .bashrc
-make_link .git
 make_link .gitignore
 make_link .gnupg
 make_link .tmux.conf
