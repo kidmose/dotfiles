@@ -48,8 +48,9 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-;; Reduce load time
-(eval-when-compile (require 'use-package))
+;; Load time optimisation:
+(eval-when-compile (require 'use-package)) ; require 'use-package only when bytecompiling
+(require 'bind-key) ;; because of using ":bind" below
 
 
 ;; Org stuff
@@ -91,6 +92,7 @@
     ;;     (org-reveal t)
     ;;     (org-show-entry)
     ;;     (show-children)))
+    (add-hook 'org-mode-hook 'flyspell-mode)
     ))
 
 (use-package ox-md
@@ -100,8 +102,100 @@
 ;; LaTeX
 (use-package tex
   :ensure auctex ; Because package and mode file names are not the same
-  :config (load-file "~/.emacs.d/el-get-init-files/init-auctex.el") ;; TODO: Clean this up
-  )
+  :bind (("M-p" . backward-paragraph)
+         ("M-n" . forward-paragraph)
+         ("M-q" . one-sentence-lines-paragraph)) ; Keybinding, replacing fill-paragraph with one-sentence-lines-paragraph
+  :config
+  (progn
+    ;;;; Basics
+    ;; Always latex-mode for tex files
+    (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
+    ;; Parse files for identifying BIBTeX, autocomplete etc.
+    (setq TeX-auto-save t) ; parse when saving
+    (setq TeX-parse-self t); parse when loading
+
+    ;;;; Compiling
+    ;; Multifile documents
+    (setq-default TeX-master nil) ; Query for master file if not already set or read from file/directory variables
+    ;; pdf output by default
+    (setq TeX-PDF-mode t)
+    ;; Add command to use Makefile
+    (eval-after-load "tex" '(add-to-list 'TeX-command-list '("make" "make" TeX-run-compile nil t)))
+    (eval-after-load "tex" '(add-to-list 'TeX-command-list '("make clean" "make clean" TeX-run-compile nil t)))
+    (eval-after-load "tex" '(add-to-list 'TeX-command-list '("make target" "make " TeX-run-compile t t)))
+    (eval-after-load "tex" '(setq compilation-scroll-output 'first-error)) ; scroll with output
+
+    ;;;; Source correlation
+    ;; Forward (Emacs to viewer) and inverse (Viewer to Emacs) search
+    ;; Enables Source Specials for DVI/synctex for pdf
+    (setq TeX-source-correlate-mode t)
+    ;; Start server without prompt. Must be started for inverse search
+    (setq TeX-source-correlate-start-server t)
+
+    ;;;; Quotes and hyphens
+    ;; Don't use danish quotation marks, use english even if danish babel is loaded ( https://www.gnu.org/software/auctex/manual/auctex/auctex_78.html#Style-Files-for-Different-Languages)
+    (eval-after-load "tex" '(add-to-list 'TeX-quote-language-alist '("danish" "``" "''" nil)))
+    ;; ;; Don't use danish hyphenation, use english even if danish babel is loaded ( https://www.gnu.org/software/auctex/manual/auctex/auctex_78.html#Style-Files-for-Different-Languages)
+    ;; (eval-after-load "LaTeX" '(add-to-list 'LaTeX-babel-hyphen-language-alist '("danish" "-" )))
+    ;; Disable fancy hyphenation from AucTex babel:
+    (setq LaTeX-babel-hyphen nil)
+    ;;;; Syntax highlighting
+    ;; Don't let verbatim environments break syntax highlighting
+    (setq LaTeX-verbatim-environments-local '("Verbatim" "lstlisting" "comment"))
+
+    (defun align-environment ()
+      "My (Egon Kidmose) own version; Apply align to the current environment only."
+      (interactive)
+      (save-excursion)
+      (LaTeX-mark-environment)
+      (align (point) (mark)))
+
+    ;;; Paragraph filling
+    ;; Alternative to fill-paragraph: Put one sentence per line.
+    ;; http://www.cs.au.dk/~abizjak/emacs/2016/03/06/latex-fill-paragraph.html
+    ;;
+    ;; TODO: This is not working. Maybe I broke something now that I
+    ;; took it into use-package, maybe it wasn't working. I recall
+    ;; that it was "brittle" anyway...
+    ;;
+    (defun one-sentence-lines-paragraph (&optional P)
+      "When called with prefix argument call `fill-paragraph'.
+Otherwise split the current paragraph into one sentence per line."
+      (interactive "P")
+      (if (not P)
+          (save-excursion
+            (let ((fill-column 12345678)) ;; relies on dynamic binding
+              (fill-paragraph) ;; this will not work correctly if the paragraph is
+              ;; longer than 12345678 characters (in which case the
+              ;; file must be at least 12MB long. This is unlikely.)
+              (let ((end (save-excursion
+                           (forward-paragraph 1)
+                           (backward-sentence)
+                           (point-marker))))  ;; remember where to stop
+                (beginning-of-line)
+                (while (progn (forward-sentence)
+                              (<= (point) (marker-position end)))
+                  (just-one-space) ;; leaves only one space, point is after it
+                  (delete-char -1) ;; delete the space
+                  (newline)        ;; and insert a newline
+                  (LaTeX-indent-line) ;; I only use this in combination with late, so this makes sense
+                  ))))
+        ;; otherwise do ordinary fill paragraph
+        (fill-paragraph P)))
+    ;; Visual fill-column - http://emacshorrors.com/posts/longlines-mode.html#id4
+    (add-hook 'LaTeX-mode-hook 'visual-line-mode) ; visual line mode does line wrapping at word boundaries without affecting file or nasty hacks.
+    (add-hook 'visual-line-mode-hook 'visual-fill-column-mode) ; Makes visual lines mode use fill-column instead of just window width
+    ;; Other hooks
+    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    (add-hook 'LaTeX-mode-hook 'orgtbl-mode)
+    ))
+
+;; RefTeX
+(use-package reftex
+  :config (progn (setq reftex-plug-into-auctex t)
+                 ;; Dont prompt if I want \ref or \pageref
+                 (setq reftex-ref-macro-prompt nil)))
 
 ;; Miscellaneous
 (use-package magit
@@ -110,6 +204,7 @@
   (progn
     (setq magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
     (setq magit-diff-refine-hunk (quote all))
+    (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
     (add-hook 'magit-mode-hook (lambda () (toggle-truncate-lines -1))) ; Fold long lines
     ))
 
@@ -131,17 +226,14 @@
   :ensure t)
 
 (use-package markdown-mode
-  :ensure t)
+  :config (add-hook 'markdown-mode-hook 'flyspell-mode))
 
 (use-package yaml-mode
   :ensure t)
 
-;; Checking
+;; spell check, linting
 (use-package flyspell
-  :after (org python)
-  :config (flyspell-mode)
-  :init (add-hook 'markdown-mode-hook 'flyspell-mode))
-                                        ;TODO: Do flyspell on python comments and docstrings?
+  :defer t)
 
 (use-package flycheck
   :ensure t
@@ -155,8 +247,10 @@
                   flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
     ))
 
-
 ;; Python stuff
+(use-package python
+  :config (add-hook 'python-mode-hook 'flyspell-prog-mode))
+
 (use-package elpy
   :ensure t
   :defer t
@@ -170,9 +264,6 @@
                          elpy-module-yasnippet
                          elpy-module-django
                          elpy-module-sane-defaults))) )
-
-;     (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
-
 
 (use-package python-black
   :ensure t
