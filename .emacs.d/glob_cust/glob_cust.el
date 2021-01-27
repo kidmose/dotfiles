@@ -21,9 +21,6 @@
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-;; suppres splash screen when opening emacs
-(setq inhibit-splash-screen t)
-
 ;; Avoid Emacs droppings (backup files will be put to temp folders)
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))

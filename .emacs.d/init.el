@@ -4,35 +4,24 @@
 
 ;;; Code:
 
-;; Global customisation
+;;; TODO: Move it in here (use-package?)
 (load "~/.emacs.d/glob_cust/glob_cust.el" nil t t)
 
-;; ;; el-get
-;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-;; ;; Downloads el-get:
-;; (unless (require 'el-get nil 'noerror)
-;;   (with-current-buffer
-;;       (url-retrieve-synchronously
-;;        "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-;;     (goto-char (point-max))
-;;     (eval-print-last-sexp)))
-;; ;; Where to store recipes
-;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-;; (el-get 'sync)
-;; ;; My own init files pr. mode:
-;; (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
+;;;; Startup optimisation
+;; (package-initialize)
+;; suppres splash screen when opening emacs
+(setq inhibit-splash-screen t
+      package-enable-at-startup nil)
+;; Disable (effectively) Garbage Collection at start-up (https://github.com/nilcons/emacs-use-package-fast#a-trick-less-gc-during-startup)
+(setq gc-cons-threshold 64000000)
+(add-hook 'after-init-hook #'(lambda ()
+                               ;; restore after startup
+                               (setq gc-cons-threshold 800000)))
+(eval-when-compile
+  (require 'use-package)) ; require 'use-package only when bytecompiling
+(require 'bind-key) ;; because of using ":bind" below
 
-;; ;; El get packages
-;; (setq my-packages
-;;       '(
-;;         visual-fill-column
-;; 	bash-completion
-;; 	restclient
-;; 	))
-;; (el-get 'sync my-packages)
-
-;; Trying out package.el and use-package
-(require 'package)
+;;;; setting up use-package related stuff
 (setq package-archives
       '(("MELPA Stable" . "https://stable.melpa.org/packages/")
         ("ORG"          . "http://orgmode.org/elpa/")
@@ -43,17 +32,11 @@
         ("ORG"          . 10)
         ("GNU ELPA"     . 6)
         ("MELPA"        . 4)))
-(package-initialize)
-;; Download use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-;; Load time optimisation:
-(eval-when-compile (require 'use-package)) ; require 'use-package only when bytecompiling
-(require 'bind-key) ;; because of using ":bind" below
 
-
-;; Org stuff
+;;;; Org stuff
 (use-package org
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
@@ -99,9 +82,10 @@
   :ensure nil
   :after org)
 
-;; LaTeX
+;;;; LaTeX
 (use-package tex
   :ensure auctex ; Because package and mode file names are not the same
+  :defer t
   :bind (("M-p" . backward-paragraph)
          ("M-n" . forward-paragraph)
          ("M-q" . one-sentence-lines-paragraph)) ; Keybinding, replacing fill-paragraph with one-sentence-lines-paragraph
@@ -197,62 +181,11 @@ Otherwise split the current paragraph into one sentence per line."
                  ;; Dont prompt if I want \ref or \pageref
                  (setq reftex-ref-macro-prompt nil)))
 
-;; Miscellaneous
-(use-package magit
-  :ensure t
-  :config
-  (progn
-    (setq magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
-    (setq magit-diff-refine-hunk (quote all))
-    (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
-    (add-hook 'magit-mode-hook (lambda () (toggle-truncate-lines -1))) ; Fold long lines
-    ))
-
-(use-package magit-gitflow
-  :ensure t
-  :after magit
-  :config
-  (progn
-    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-    (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
-    ))
-
-(use-package visual-fill-column
-  :ensure t
-  :after (auctex)
-  )
-
-(use-package nix-mode
-  :ensure t)
-
-(use-package markdown-mode
-  :config (add-hook 'markdown-mode-hook 'flyspell-mode))
-
-(use-package yaml-mode
-  :ensure t)
-
-;; spell check, linting
-(use-package flyspell
-  :defer t)
-
-(use-package flycheck
-  :ensure t
-  :commands flycheck-mode
-  :init (add-hook 'prog-mode-hook 'flycheck-mode)
-  :config
-  (progn
-    (setq-default flycheck-emacs-lisp-initialize-packages t
-                  flycheck-highlighting-mode 'lines
-                  flycheck-check-syntax-automatically '(save)
-                  flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
-    ))
-
-;; Python stuff
+;;;; Python stuff
 (use-package python
   :config (add-hook 'python-mode-hook 'flyspell-prog-mode))
 
 (use-package elpy
-  :ensure t
   :defer t
   :init (advice-add 'python-mode :before 'elpy-enable)
   :config  (setq elpy-modules ;; Take away the Flymake that is causing
@@ -266,19 +199,46 @@ Otherwise split the current paragraph into one sentence per line."
                          elpy-module-sane-defaults))) )
 
 (use-package python-black
-  :ensure t
   :defer t
   :init (add-hook 'python-mode-hook 'python-black-on-save-mode)
   :config (setq python-black-command "black"))
 
 (use-package ein
-  :ensure t
   :commands (ein:notebooklist-open))
 ;; ein from melpa stable is not supported
 (add-to-list 'package-archive-priorities '(ein . "MELPA"))
 
+;;;; Miscellaneous
+(use-package magit
+  :bind ("C-c s" . magit-status)
+  :config
+  (progn
+    (setq magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
+    (setq magit-diff-refine-hunk (quote all))
+    (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
+    (add-hook 'magit-mode-hook (lambda () (toggle-truncate-lines -1))) ; Fold long lines
+    ))
+
+(use-package magit-gitflow
+  :after magit
+  :config
+  (progn
+    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+    (setq magit-gitflow-feature-start-arguments (quote ("--fetch")))
+    ))
+
+(use-package visual-fill-column
+  :after (auctex)
+  )
+
+(use-package nix-mode)
+
+(use-package markdown-mode
+  :config (add-hook 'markdown-mode-hook 'flyspell-mode))
+
+(use-package yaml-mode)
+
 (use-package openwith
-  :ensure t
   :config (progn
             (openwith-mode t)
             (setq openwith-associations (quote (
@@ -312,15 +272,29 @@ Otherwise split the current paragraph into one sentence per line."
 ;;     ad-do-it))
 ;; (ad-activate 'abort-if-file-too-large)
 
+;;;; spell check, linting
+(use-package flyspell
+  :defer t)
 
-;; Emacs built-in customisation
+(use-package flycheck
+  :commands flycheck-mode
+  :init (add-hook 'prog-mode-hook 'flycheck-mode)
+  :config
+  (progn
+    (setq-default flycheck-emacs-lisp-initialize-packages t
+                  flycheck-highlighting-mode 'lines
+                  flycheck-check-syntax-automatically '(save)
+                  flycheck-disabled-checkers '(c/c++-clang c/c++-gcc))
+    ))
+
+;;;; Emacs built-in customisation
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode nil)
- '(initial-major-mode 'org-mode)
+ '(initial-major-mode 'fundamental-mode)
  '(initial-scratch-message nil)
  '(ispell-dictionary "en_GB")
  '(org-agenda-span 'fortnight)
