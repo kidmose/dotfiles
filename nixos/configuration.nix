@@ -42,7 +42,6 @@ in
   # Packages to install
   environment.systemPackages = with pkgs; [
     discord
-    emacs
     evince
     firefox
     gnome3.eog

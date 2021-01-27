@@ -288,6 +288,7 @@ Otherwise split the current paragraph into one sentence per line."
 	                                        ("\\.png\\'" "eog" (file))
 	                                        ("\\.odt\\'" "libreoffice" (file))
 	                                        ("\\.docx\\'" "libreoffice" (file))
+	                                        ("\\.xlsx\\'" "libreoffice" (file))
                                                 )))))
 ;; ;; Do not nag when openning large files
 ;; ;; Inspired by https://emacs.stackexchange.com/a/17096/8658
@@ -319,10 +320,13 @@ Otherwise split the current paragraph into one sentence per line."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode nil)
- '(initial-major-mode (quote org-mode))
+ '(initial-major-mode 'org-mode)
  '(initial-scratch-message nil)
  '(ispell-dictionary "en_GB")
- '(safe-local-variable-values (quote ((encoding . utf-8)))))
+ '(org-agenda-span 'fortnight)
+ '(package-selected-packages
+   '(markdown-preview-eww impatient-mode yaml-mode visual-fill-column use-package python-black org-plus-contrib nix-mode magit-gitflow flycheck elpy ein edbi dockerfile-mode auctex))
+ '(safe-local-variable-values '((encoding . utf-8))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

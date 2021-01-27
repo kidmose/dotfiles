@@ -12,10 +12,6 @@ esac
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-
-export EDITOR="emacs -nw"
-alias "emacsnw"="emacs -nw"
-
 # Alt-Enter to run in a new detached tmux session
 bind '"\e\C-M":"\C-atmux new-session -d  '"'"'\C-e'"'"'\n'
 

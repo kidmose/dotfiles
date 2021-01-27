@@ -2,7 +2,10 @@
 
 { config, pkgs, ... }:
 {
+  services.emacs.defaultEditor = true;
+
   environment.systemPackages = with pkgs; [
+    emacs
     autoconf gnumake # for AUCTeX through emacs' el-get
     aspell
     aspellDicts.da
