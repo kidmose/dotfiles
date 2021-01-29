@@ -143,6 +143,9 @@ function smbprint() {
     smbclient -U $SMB_PRINT_USER $SMB_PRINT_SERVER -c "print $1"
 }
 
+# slurm stuff
+alias myslurm-qosinfo="sacctmgr show qos format=name,priority,MaxWall,MaxTRESPU%20"
+
 
 # nix and nixos related
 NIX_PATH="$NIX_PATH:nixpkgs-overlays=/etc/nixos/overlays" # overlays from os also for tools (nix-env et al.)
