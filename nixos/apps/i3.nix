@@ -3,6 +3,7 @@
 
   imports = [
     ./x11.nix
+    ./clipboard.nix
   ];
 
   # services.blueman.enable = true;
@@ -15,10 +16,6 @@
       # appearance
       dunst                     # notfication daemon
       slstatus
-
-      # screenshotting
-      scrot                     # take screenshots
-      xclip                     # clipboard utility
 
       # applications
       # dmenu # Maybe this over rofi?
@@ -57,5 +54,3 @@
     };
   };
 }
-
-
