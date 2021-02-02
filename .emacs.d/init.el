@@ -82,6 +82,19 @@
   :ensure nil
   :after org)
 
+(use-package org-attach-screenshot
+  :after org
+  :bind (("C-c C-<print>" . org-attach-screenshot))
+  :config (progn
+            (setq org-attach-screenshot-command-line "maim -s %f")
+            (setq org-attach-screenshot-dirfunction
+	          (lambda ()
+	            (progn (cl-assert (buffer-file-name))
+	        	   (concat (file-name-sans-extension (buffer-file-name))
+	        		   "_att"))))
+            (setq org-attach-screenshot-relative-links t)
+            ))
+
 ;;;; LaTeX
 (use-package tex
   :ensure auctex ; Because package and mode file names are not the same
@@ -245,7 +258,8 @@ Otherwise split the current paragraph into one sentence per line."
 	                                        ("\\.pdf\\'" "evince" (file))
 	                                        ("\\.jpg\\'" "eog" (file))
 	                                        ("\\.jpeg\\'" "eog" (file))
-	                                        ("\\.png\\'" "eog" (file))
+                                        ; openwith's global behaviour messes with inline images
+	                                        ;;("\\.png\\'" "eog" (file))
 	                                        ("\\.odt\\'" "libreoffice" (file))
 	                                        ("\\.docx\\'" "libreoffice" (file))
 	                                        ("\\.xlsx\\'" "libreoffice" (file))
