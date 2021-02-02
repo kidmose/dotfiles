@@ -6,6 +6,7 @@ in
   imports = [
     ../../apps/cli.nix
     ../../apps/python.nix
+    ../../apps/emacs.nix
     ./tools.nix
   ];
 
@@ -21,6 +22,9 @@ in
   );
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    (import ./../../overlays/emacs-lucid.nix)
+  ];
   # Boot loader
   boot.loader.timeout = 0;
 
@@ -69,7 +73,6 @@ in
 
   environment.systemPackages = with pkgs; [
     firefox
-    emacs-nox # Because X11 forwarding emacs is broken
   ];
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark; # does *-cli, i.e. tshark, by default
