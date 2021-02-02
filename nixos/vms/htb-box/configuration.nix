@@ -10,6 +10,14 @@ in
     ./tools.nix
   ];
 
+  # networking.hostName = "htb-box";
+  networking.firewall.allowedTCPPortRanges = [
+    { from = 4242; to = 5252; }
+  ];
+  networking.firewall.allowedUDPPortRanges = [
+    { from = 4242; to = 5252; }
+  ];
+
   fileSystems = pkgs.lib.mkVMOverride (
     {
       "/home/${s.os.user.name}" = {
