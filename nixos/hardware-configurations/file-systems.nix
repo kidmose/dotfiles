@@ -16,7 +16,10 @@
       fsType = "vfat";
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
-    ];
+  # It seems like nixos automatically picks up the disk when it is labelled "swap"
+  # swapDevices = [
+  #   { device = "/dev/disk/by-label/swap";
+  #     encrypted.enable = false; # TODO: This is BAD! I should really move to full disk encryption
+  #   }
+  # ];
 }
