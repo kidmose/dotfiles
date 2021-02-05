@@ -3,8 +3,8 @@
 #
 # Specify "Hostname", "Port", and "User" for a "Host" named "target" in `./ssh-config`
 
-PIDFILE := /tmp/htb-box.pid
 SSHPORT := 2221
+PIDFILE := /tmp/htb-box-$(SSHPORT).pid
 
 # TODO:
 #
@@ -31,7 +31,9 @@ local: $(wildcard *.nix)
 	 -pidfile $(PIDFILE) -daemonize
 
 kill:
+	@echo "Killing PID '$$(cat $(PIDFILE) 2>/dev/null)' (from $(PIDFILE))"
 	kill $$(cat $(PIDFILE))
+	rm $(PIDFILE)
 
 clean:
 	if [ -f "$(PIDFILE)" ]; then kill "$$(cat $(PIDFILE))" && sleep 1 || true; fi
