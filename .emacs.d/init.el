@@ -84,7 +84,8 @@
 
 (use-package org-attach-screenshot
   :after org
-  :bind (("C-c C-<print>" . org-attach-screenshot))
+  :bind (:map org-mode-map
+              ("C-c C-<print>" . org-attach-screenshot))
   :config (progn
             (setq org-attach-screenshot-command-line "maim -s %f")
             (setq org-attach-screenshot-dirfunction
@@ -99,9 +100,10 @@
 (use-package tex
   :ensure auctex ; Because package and mode file names are not the same
   :defer t
-  :bind (("M-p" . backward-paragraph)
-         ("M-n" . forward-paragraph)
-         ("M-q" . one-sentence-lines-paragraph)) ; Keybinding, replacing fill-paragraph with one-sentence-lines-paragraph
+  :bind (:map LaTeX-mode-map
+              ("M-p" . backward-paragraph)
+              ("M-n" . forward-paragraph)
+              ("M-q" . one-sentence-lines-paragraph)) ; Keybinding, replacing fill-paragraph with one-sentence-lines-paragraph
   :config
   (progn
     ;;;; Basics
