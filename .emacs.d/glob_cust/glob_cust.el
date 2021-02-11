@@ -18,8 +18,8 @@
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 ;; Clipboard to and from other programs
-(setq x-select-enable-clipboard t)
-(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+(if (eq window-system 'x) (setq x-select-enable-clipboard t))
+(if (eq window-system 'x) (setq interprogram-paste-function 'x-cut-buffer-or-selection-value))
 
 ;; Avoid Emacs droppings (backup files will be put to temp folders)
 (setq backup-directory-alist
