@@ -24,7 +24,7 @@
 ;;;; setting up use-package related stuff
 (setq package-archives
       '(("MELPA Stable" . "https://stable.melpa.org/packages/")
-        ("ORG"          . "http://orgmode.org/elpa/")
+        ("ORG"          . "https://orgmode.org/elpa/")
         ("GNU ELPA"     . "https://elpa.gnu.org/packages/")
         ("MELPA"        . "https://melpa.org/packages/")))
 (setq package-archive-priorities
