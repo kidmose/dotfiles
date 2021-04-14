@@ -46,21 +46,32 @@
               )
   :config
   (progn
+    ;; General and miscellaneous
+    (setq org-archive-location "archive/%s_archive::")
+    (add-to-list 'org-modules 'org-tempo)
+
+    ;; TODOs
     (setq org-log-done t)
-    (setq org-agenda-files (list "~/org/"))
     (setq org-todo-keywords
           '((sequence "TODO"  "WAITING" "BACKLOG" "|" "DONE" "DELEGATED" "SCRAPPED")))
+
+    ;; Agenda
+    (setq org-agenda-files (list "~/org/"))
+    (setq org-agenda-span 'fortnight)
     (setq org-agenda-sorting-strategy
           '((agenda habit-down time-up priority-down category-keep)
             (todo deadline-up timestamp-up todo-state-up category-keep)
             (tags priority-down category-keep)
             (search category-keep)))
-    (add-to-list 'org-modules 'org-tempo)
+
+    ;; Babel
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((shell . t)
        (python . t)))
     (setq org-confirm-babel-evaluate nil)
+
+    ;; Folding
     ;; (defun org-reveal-tidy ()
     ;;   (interactive)
     ;;   "Reveal current entry, fold all others."
@@ -75,11 +86,16 @@
     ;;     (org-reveal t)
     ;;     (org-show-entry)
     ;;     (show-children)))
+
+    ;; Hooks
     (add-hook 'org-mode-hook 'flyspell-mode)
     ))
 
-(use-package ox-md
+(use-package ox-md ;; markdown export
   :ensure nil
+  :after org)
+
+(use-package ob-async ;; Asyncronous code block like this: #+begin_src bash :async t ...
   :after org)
 
 (use-package org-attach-screenshot
@@ -313,10 +329,10 @@ Otherwise split the current paragraph into one sentence per line."
  '(initial-major-mode 'fundamental-mode)
  '(initial-scratch-message nil)
  '(ispell-dictionary "en_GB")
- '(org-agenda-span 'fortnight)
  '(package-selected-packages
    '(markdown-preview-eww impatient-mode yaml-mode visual-fill-column use-package python-black org-plus-contrib nix-mode magit-gitflow flycheck elpy ein edbi dockerfile-mode auctex))
- '(safe-local-variable-values '((encoding . utf-8))))
+ '(safe-local-variable-values'(
+     (encoding . utf-8))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
