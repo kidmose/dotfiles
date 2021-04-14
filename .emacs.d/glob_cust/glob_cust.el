@@ -17,9 +17,18 @@
       (interactive)
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
-;; Clipboard to and from other programs
-(if (eq window-system 'x) (setq x-select-enable-clipboard t))
-(if (eq window-system 'x) (setq interprogram-paste-function 'x-cut-buffer-or-selection-value))
+;; Clipboard to and from other programs when running under X11
+(if (eq window-system 'x) (setq select-enable-clipboard t
+                                interprogram-paste-function 'x-cut-buffer-or-selection-value))
+;; On MacOS, swap super/command with meta/option inside emacs
+;; https://www.lonecpluspluscoder.com/2014/01/22/make-gnu-emacs-play-nicely-with-a-german-keyboard-layout-on-mac-os-x/
+;;
+(if (eq system-type 'darwin) (setq mac-command-modifier 'meta
+                                   mac-option-modifier 'none
+                                   default-input-method "MacOSX"))
+
+;; suppres splash screen when opening emacs
+(setq inhibit-splash-screen t)
 
 ;; Avoid Emacs droppings (backup files will be put to temp folders)
 (setq backup-directory-alist
